@@ -41,6 +41,10 @@
     color-scheme: light;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--color-ivory);
     color: var(--color-ink);

@@ -24,10 +24,10 @@ export type Currency = (typeof CURRENCIES)[number];
 
 export const NAV = [
   { href: '/destinations', label: 'Destinations' },
-  { href: '/experiences', label: 'Experiences' },
-  { href: '/journeys', label: 'Sample Journeys' },
-  { href: '/how-it-works', label: 'How It Works' },
-  { href: '/why-ivory-arc', label: 'Why Ivory Arc' },
+  { href: '/#experiences', label: 'Experiences' },
+  { href: '/#journeys', label: 'Sample Journeys' },
+  { href: '/#how-it-works', label: 'How It Works' },
+  { href: '/#why', label: 'Why Ivory Arc' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ] as const;

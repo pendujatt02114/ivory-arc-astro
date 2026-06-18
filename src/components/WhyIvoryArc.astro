@@ -9,7 +9,7 @@ const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 const points = [1, 2, 3, 4] as const;
 ---
-<section class="container-ed py-16 md:py-24">
+<section id="why" class="container-ed scroll-mt-24 py-16 md:py-24">
   <SectionHeading eyebrow={t('why.eyebrow')} title={t('why.title')} />
   <dl class="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2">
     {

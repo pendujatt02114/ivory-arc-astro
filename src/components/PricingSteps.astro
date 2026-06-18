@@ -9,7 +9,7 @@ const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 const steps = [1, 2, 3] as const;
 ---
-<section class="bg-cream">
+<section id="how-it-works" class="scroll-mt-24 bg-cream">
   <div class="container-ed py-16 md:py-24">
     <SectionHeading
       eyebrow={t('pricing.eyebrow')}

@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Picture from '../components/Picture.astro';
+import CTAButton from '../components/CTAButton.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+
+const title = 'Destinations — Ivory Arc Travels';
+const description =
+  'Where we travel across North India — Rajasthan, Uttar Pradesh, Himachal, Punjab and Jammu. Heritage cities, sacred rivers, tiger country and the Himalaya, on private journeys shaped around you.';
+
+const places = [
+  { img: 'udaipur', name: 'Udaipur', region: 'Rajasthan', note: 'Lake palaces, marble courtyards and sunset boats on Lake Pichola.' },
+  { img: 'jodhpur', name: 'Jodhpur', region: 'Rajasthan', note: 'The blue city beneath the ramparts of Mehrangarh Fort.' },
+  { img: 'jaisalmer', name: 'Jaisalmer', region: 'Rajasthan', note: 'A living golden-sandstone fort on the edge of the Thar Desert.' },
+  { img: 'pushkar', name: 'Pushkar', region: 'Rajasthan', note: 'A sacred lake town of ghats, temples and the famous camel fair.' },
+  { img: 'bikaner', name: 'Bikaner', region: 'Rajasthan', note: 'Junagarh Fort, ornate havelis and old Silk Road trade routes.' },
+  { img: 'ranthambore', name: 'Ranthambore', region: 'Rajasthan', note: "India's most storied tiger reserve, wrapped around a hilltop fort." },
+  { img: 'ayodhya', name: 'Ayodhya', region: 'Uttar Pradesh', note: 'The Ram Mandir and the spiritual heart of the Sarayu riverlands.' },
+  { img: 'khajjiar', name: 'Khajjiar', region: 'Himachal Pradesh', note: 'Alpine meadows ringed by deodar forest — the “mini Switzerland”.' },
+  { img: 'solang-valley', name: 'Solang Valley', region: 'Himachal Pradesh', note: 'High-altitude adventure and snow above the Manali valley.' },
+  { img: 'patiala', name: 'Patiala', region: 'Punjab', note: 'Royal Punjab — Qila Mubarak, gardens and a living court culture.' },
+  { img: 'vaishno-devi', name: 'Vaishno Devi', region: 'Jammu', note: "One of India's most revered pilgrimages, in the Trikuta hills." },
+] as const;
+---
+
+<BaseLayout title={title} description={description} canonical="/destinations">
+  <section class="container-ed py-16 md:py-24">
+    <SectionHeading
+      eyebrow="Destinations"
+      title="Where we travel."
+      intro="From the palaces of Rajasthan to the Ganges, the tiger forests and the Himalaya — each place below is a starting point for a private journey shaped entirely around you, never a fixed package."
+      align="left"
+    />
+
+    <ul class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5">
+      {
+        places.map((p) => (
+          <li>
+            <a
+              href="/plan"
+              class="group relative block overflow-hidden rounded-lg"
+              data-cta
+              data-cta-target="estimator"
+              data-cta-location="destinations_grid"
+              data-cta-label={p.name}
+            >
+              <Picture
+                base={`/assets/thumbnails/${p.img}`}
+                alt={`${p.name}, ${p.region}`}
+                width={800}
+                height={1000}
+                sizes="(min-width: 768px) 33vw, 50vw"
+                class="block aspect-[4/5] w-full"
+                imgClass="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <span class="pointer-events-none absolute inset-0 bg-gradient-to-t from-teal-900/85 via-teal-900/20 to-transparent" />
+              <div class="absolute inset-x-0 bottom-0 p-4">
+                <p class="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-gold">{p.region}</p>
+                <h2 class="mt-0.5 font-display text-xl !text-ivory">{p.name}</h2>
+                <p class="mt-1 text-sm text-ivory/85">{p.note}</p>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-12 flex flex-col items-start gap-3 sm:flex-row">
+      <CTAButton href="/plan" variant="primary" label="Get an estimate" target="estimator" location="destinations_footer" />
+      <WhatsAppLink variant="secondary" location="destinations_footer" />
+    </div>
+  </section>
+</BaseLayout>

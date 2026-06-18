@@ -21,7 +21,7 @@ const journeys = all
   .sort((a, b) => a.data.indicativePerDayINR - b.data.indicativePerDayINR)
   .slice(0, 3);
 ---
-<section class="bg-cream">
+<section id="journeys" class="scroll-mt-24 bg-cream">
   <div class="container-ed py-16 md:py-24">
     <SectionHeading
       eyebrow={t('journeys.eyebrow')}

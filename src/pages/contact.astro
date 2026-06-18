@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import CTAButton from '../components/CTAButton.astro';
+import { SITE } from '../consts';
+
+const title = 'Contact — Ivory Arc Travels';
+const description =
+  'Talk to Ivory Arc about a private journey across North India. Reach IVY on WhatsApp for fast planning, or our specialists for complex itineraries.';
+---
+
+<BaseLayout title={title} description={description} canonical="/contact">
+  <section class="container-ed py-16 md:py-24">
+    <SectionHeading
+      eyebrow="Contact"
+      title="Let’s plan your journey."
+      intro="The fastest way to reach us is on WhatsApp. IVY can start shaping an itinerary and an indicative price straight away; our specialists handle complex or multi-region trips."
+      align="left"
+    />
+
+    <div class="mt-12 grid gap-10 md:grid-cols-[1.2fr_1fr] md:gap-16">
+      <div class="space-y-8">
+        <div>
+          <h2 class="text-h3">Chat with IVY</h2>
+          <p class="mt-2 max-w-md text-muted">
+            Planning, availability and an honest indicative quote — the quickest path to a journey.
+          </p>
+          <div class="mt-4"><WhatsAppLink agent="ivy" variant="primary" location="contact" /></div>
+        </div>
+
+        <div>
+          <h2 class="text-h3">Speak to a specialist</h2>
+          <p class="mt-2 max-w-md text-muted">
+            For complex, multi-region or special-occasion journeys that need a human touch from the start.
+          </p>
+          <div class="mt-4"><WhatsAppLink agent="specialist" variant="secondary" location="contact" /></div>
+        </div>
+
+        <div>
+          <h2 class="text-h3">Prefer to start online?</h2>
+          <p class="mt-2 max-w-md text-muted">
+            Use the estimator to shape a journey and see an indicative range in INR before you talk to anyone.
+          </p>
+          <div class="mt-4">
+            <CTAButton href="/plan" variant="secondary" label="Open the estimator" target="estimator" location="contact" />
+          </div>
+        </div>
+      </div>
+
+      <aside class="rounded-lg border border-line bg-cream p-6">
+        <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700">Business details</h2>
+        <dl class="mt-4 space-y-3 text-sm">
+          <div><dt class="text-muted">Legal name</dt><dd class="text-ink">{SITE.name}</dd></div>
+          <div><dt class="text-muted">GST</dt><dd class="text-ink">{SITE.gst}</dd></div>
+          <div><dt class="text-muted">Registration</dt><dd class="text-ink">Registered Indian tour operator</dd></div>
+          <div><dt class="text-muted">Billing</dt><dd class="text-ink">All journeys billed in INR — other currencies indicative only</dd></div>
+          <div><dt class="text-muted">Response</dt><dd class="text-ink">WhatsApp messages are answered during working hours, IST</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

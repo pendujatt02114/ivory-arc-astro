@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CTAButton from '../components/CTAButton.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { SITE } from '../consts';
+
+const title = 'About — Ivory Arc Travels';
+const description =
+  'Ivory Arc is a private travel atelier designing bespoke heritage and spiritual journeys across North India — transparent pricing, private guides, and no commission-driven shopping stops.';
+
+const values = [
+  { t: 'A travel atelier, not an agency', d: 'We don’t sell packages off a shelf. Every itinerary is drawn from scratch around your pace, your interests and the season.' },
+  { t: 'Transparent by design', d: 'Hotels and ground services at actual cost, plus a single, clearly stated 10% coordination fee. Quotes are always in INR, with nothing buried in the price.' },
+  { t: 'Private journeys only', d: 'No group departures and no shared coaches — private vehicles, expert local guides, and time that belongs to you.' },
+  { t: 'No commission-driven stops', d: 'We never route you through emporiums or workshops for a kickback. Your hours on the road are spent on what you came for.' },
+];
+---
+
+<BaseLayout title={title} description={description} canonical="/about">
+  <section class="container-ed py-16 md:py-24">
+    <SectionHeading
+      eyebrow="About"
+      title="Journeys across North India, designed entirely around you."
+      intro="Ivory Arc Travels is a private atelier for heritage and spiritual travel across North India — from the palaces of Rajasthan to the Ganges, the Himalaya, and the Sikh and Hindu pilgrimage routes."
+      align="left"
+    />
+
+    <div class="mt-8 max-w-2xl space-y-5 text-lg text-muted">
+      <p>
+        We began with a simple frustration: luxury travel in India is too often sold as fixed
+        packages, padded with hidden markups and detours to shops that pay commission. We built
+        Ivory Arc to do the opposite — to plan privately, price honestly, and put your time first.
+      </p>
+      <p>
+        Planning starts with <strong class="text-ink">IVY</strong>, our in-house planning concierge,
+        who shapes a first itinerary and an indicative price in minutes. For complex, multi-region or
+        special-occasion journeys, our specialists step in with the judgement that only real local
+        knowledge brings.
+      </p>
+      <p>
+        We are a registered Indian tour operator (GST {SITE.gst}). Every journey is billed in INR;
+        the currencies shown elsewhere on the site are indicative only.
+      </p>
+    </div>
+
+    <dl class="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+      {
+        values.map((v) => (
+          <div class="border-t border-line pt-5">
+            <dt class="text-h3">{v.t}</dt>
+            <dd class="mt-2 text-muted">{v.d}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div class="mt-14 flex flex-col items-start gap-3 sm:flex-row">
+      <WhatsAppLink variant="primary" location="about_footer" />
+      <CTAButton href="/plan" variant="secondary" label="Get an estimate" target="estimator" location="about_footer" />
+    </div>
+  </section>
+</BaseLayout>

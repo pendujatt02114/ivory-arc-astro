@@ -18,14 +18,14 @@ const items = [
   { key: 'luxury', img: 'udaipur', alt: 'A lake palace in Udaipur at dusk' },
 ] as const;
 ---
-<section class="container-ed py-16 md:py-24">
+<section id="experiences" class="container-ed scroll-mt-24 py-16 md:py-24">
   <SectionHeading eyebrow={t('interests.eyebrow')} title={t('interests.title')} />
   <ul class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5">
     {
       items.map((it) => (
         <li>
           <a
-            href={`/experiences/${it.key}`}
+            href="/plan"
             class="group relative block overflow-hidden rounded-lg"
             data-cta
             data-cta-target="nav"

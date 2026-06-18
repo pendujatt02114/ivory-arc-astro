@@ -10,10 +10,10 @@ const { transparent = false } = Astro.props;
 ---
 <header data-header data-transparent={transparent ? 'true' : 'false'}>
   <div class="container-ed flex h-16 items-center justify-between gap-4 md:h-[72px]">
-    <a href="/" class="flex items-center gap-2.5" aria-label={`${SITE.name} — home`}>
-      <img src="/brand/logo-mark.webp" width="274" height="240" alt="" class="hd-mark hd-mark-gold h-9 w-auto md:h-10" />
-      <img src="/brand/logo-mark-white.webp" width="274" height="240" alt="" class="hd-mark hd-mark-white h-9 w-auto md:h-10" />
-      <span class="hd-wordmark font-display text-base tracking-wide text-teal md:text-lg">
+    <a href="/" class="flex min-w-0 items-center gap-2.5" aria-label={`${SITE.name} — home`}>
+      <img src="/brand/logo-mark.webp" width="274" height="240" alt="" class="hd-mark hd-mark-gold h-9 w-auto shrink-0 md:h-10" />
+      <img src="/brand/logo-mark-white.webp" width="274" height="240" alt="" class="hd-mark hd-mark-white h-9 w-auto shrink-0 md:h-10" />
+      <span class="hd-wordmark truncate font-display text-base tracking-wide text-teal md:text-lg">
         Ivory Arc Travels
       </span>
     </a>
@@ -34,7 +34,7 @@ const { transparent = false } = Astro.props;
       }
     </nav>
 
-    <div class="hidden items-center gap-3 md:flex">
+    <div class="hidden items-center gap-3 xl:flex">
       <WhatsAppLink variant="secondary" location="header" class="!min-h-[44px] !px-4 !text-sm" />
       <CTAButton
         href="/plan"
@@ -52,7 +52,7 @@ const { transparent = false } = Astro.props;
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="Open menu"
-      class="hd-burger inline-flex size-11 items-center justify-center rounded-md xl:hidden"
+      class="hd-burger inline-flex size-11 shrink-0 items-center justify-center rounded-md xl:hidden"
     >
       <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
         <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round" />
