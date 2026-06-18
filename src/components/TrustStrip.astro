@@ -1,0 +1,39 @@
+---
+import { SITE } from '../consts';
+
+const signals = [
+  'Registered Indian Tour Operator',
+  `GST ${SITE.gst}`,
+  'Transparent pricing',
+  'No commission-driven shopping stops',
+  'Private vehicles',
+  'Secure payments',
+];
+---
+<section class="bg-cream" aria-label="Why travellers trust Ivory Arc">
+  <div class="container-ed py-5">
+    <ul class="flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5">
+      {
+        signals.map((s) => (
+          <li class="flex items-center gap-2 text-sm text-ink/85">
+            <svg
+              class="size-4 shrink-0 text-teal"
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 10.5l3.5 3.5L16 5.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>{s}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

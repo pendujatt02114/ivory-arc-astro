@@ -1,0 +1,162 @@
+---
+import { NAV, SITE } from '../consts';
+import CTAButton from './CTAButton.astro';
+import WhatsAppLink from './WhatsAppLink.astro';
+
+interface Props {
+  transparent?: boolean; // start transparent over a hero, solidify on scroll
+}
+const { transparent = false } = Astro.props;
+---
+<header data-header data-transparent={transparent ? 'true' : 'false'}>
+  <div class="container-ed flex h-16 items-center justify-between gap-4 md:h-[72px]">
+    <a href="/" class="flex items-center gap-2.5" aria-label={`${SITE.name} — home`}>
+      <img src="/brand/logo-mark.webp" width="274" height="240" alt="" class="hd-mark hd-mark-gold h-9 w-auto md:h-10" />
+      <img src="/brand/logo-mark-white.webp" width="274" height="240" alt="" class="hd-mark hd-mark-white h-9 w-auto md:h-10" />
+      <span class="hd-wordmark font-display text-base tracking-wide text-teal md:text-lg">
+        Ivory Arc Travels
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-6 xl:flex" aria-label="Primary">
+      {
+        NAV.map((item) => (
+          <a
+            href={item.href}
+            class="hd-link text-sm text-ink/85 transition-colors hover:text-teal"
+            data-cta
+            data-cta-target="nav"
+            data-cta-location="header"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="hidden items-center gap-3 md:flex">
+      <WhatsAppLink variant="secondary" location="header" class="!min-h-[44px] !px-4 !text-sm" />
+      <CTAButton
+        href="/plan"
+        variant="primary"
+        label="Get an estimate"
+        target="estimator"
+        location="header"
+        class="!min-h-[44px] !px-4 !text-sm"
+      />
+    </div>
+
+    <button
+      type="button"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+      class="hd-burger inline-flex size-11 items-center justify-center rounded-md xl:hidden"
+    >
+      <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" data-menu hidden class="border-t border-line bg-ivory xl:hidden">
+    <nav class="container-ed flex flex-col py-2" aria-label="Mobile">
+      {
+        NAV.map((item) => (
+          <a
+            href={item.href}
+            class="border-b border-line/70 py-3 text-base text-ink"
+            data-cta
+            data-cta-target="nav"
+            data-cta-location="mobile_menu"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <div class="mt-4 flex flex-col gap-3 pb-3">
+        <CTAButton href="/plan" variant="primary" label="Get an estimate" target="estimator" location="mobile_menu" />
+        <WhatsAppLink variant="secondary" location="mobile_menu" />
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  header[data-header] {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease;
+    background: color-mix(in srgb, var(--color-ivory) 92%, transparent);
+    -webkit-backdrop-filter: saturate(1.1) blur(8px);
+    backdrop-filter: saturate(1.1) blur(8px);
+    border-bottom: 1px solid var(--color-line);
+  }
+  /* transparent over a hero until the page is scrolled */
+  header[data-transparent='true'] {
+    /* float over the hero so the image runs to the very top of the viewport */
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+  header[data-transparent='true']:not([data-scrolled]) {
+    background: linear-gradient(to bottom, rgba(8, 45, 43, 0.5), rgba(8, 45, 43, 0));
+    border-bottom-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  header[data-transparent='true']:not([data-scrolled]) .hd-wordmark,
+  header[data-transparent='true']:not([data-scrolled]) .hd-link,
+  header[data-transparent='true']:not([data-scrolled]) .hd-burger {
+    color: var(--color-ivory);
+  }
+
+  /* Logo mark: keyed gold on the solid bar, reversed (white) when floating over the hero. */
+  .hd-mark-white {
+    display: none;
+  }
+  header[data-transparent='true']:not([data-scrolled]) .hd-mark-gold {
+    display: none;
+  }
+  header[data-transparent='true']:not([data-scrolled]) .hd-mark-white {
+    display: block;
+  }
+</style>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const menu = document.getElementById('mobile-menu');
+
+  function setOpen(open: boolean) {
+    if (!menu || !toggle) return;
+    menu.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+  }
+
+  toggle?.addEventListener('click', () => setOpen(!!menu?.hidden));
+  menu?.addEventListener('click', (e) => {
+    if (e.target instanceof HTMLElement && e.target.closest('a')) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.hidden) {
+      setOpen(false);
+      (toggle as HTMLElement | null)?.focus();
+    }
+  });
+
+  if (header instanceof HTMLElement && header.dataset.transparent === 'true') {
+    const onScroll = () => {
+      if (window.scrollY > 8) header.setAttribute('data-scrolled', '');
+      else header.removeAttribute('data-scrolled');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>

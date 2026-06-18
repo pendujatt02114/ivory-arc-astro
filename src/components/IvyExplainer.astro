@@ -1,0 +1,49 @@
+---
+import Picture from './Picture.astro';
+import WhatsAppLink from './WhatsAppLink.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+---
+<section class="bg-teal text-ivory">
+  <div class="container-ed grid items-center gap-10 py-16 md:grid-cols-[1fr_1.2fr] md:gap-16 md:py-24">
+    <div>
+      <p class="text-xs font-medium uppercase tracking-[0.22em] text-gold">{t('ivy.eyebrow')}</p>
+      <h2 class="mt-3 text-h2 !text-ivory">{t('ivy.title')}</h2>
+      <p class="mt-4 max-w-md text-lg text-ivory/80">{t('ivy.body')}</p>
+      <div class="mt-8">
+        <WhatsAppLink variant="primary" location="ivy_section" label={t('cta.ivy')} />
+      </div>
+    </div>
+    <div class="md:justify-self-end">
+      <!-- Photograph framed inside the ornamental gold ogee arch. The photo is masked to
+           the arch silhouette and the gold frame is overlaid on top; both share the source
+           artwork's aspect ratio, so they stay pixel-aligned at any size. Swap `base` below
+           to change the photo inside the frame. -->
+      <div class="ivy-arch relative w-full max-w-lg" style="aspect-ratio: 1112 / 1149">
+        <Picture
+          base="/assets/thumbnails/pushkar"
+          alt="Pushkar at golden hour, Rajasthan"
+          width={720}
+          height={744}
+          sizes="(min-width: 768px) 512px, 100vw"
+          class="absolute inset-0 block h-full w-full"
+          imgClass="ivy-arch-photo h-full w-full object-cover"
+        />
+        <Picture
+          base="/brand/arch-gold"
+          alt=""
+          width={1112}
+          height={1149}
+          sizes="(min-width: 768px) 512px, 100vw"
+          class="pointer-events-none absolute inset-0 z-10 block h-full w-full"
+          imgClass="h-full w-full"
+        />
+      </div>
+    </div>
+  </div>
+</section>

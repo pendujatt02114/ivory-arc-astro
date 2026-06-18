@@ -1,0 +1,32 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+const steps = [1, 2, 3] as const;
+---
+<section class="bg-cream">
+  <div class="container-ed py-16 md:py-24">
+    <SectionHeading
+      eyebrow={t('pricing.eyebrow')}
+      title={t('pricing.title')}
+      intro={t('pricing.intro')}
+    />
+    <ol class="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
+      {
+        steps.map((n) => (
+          <li>
+            <div class="font-display text-4xl text-teal">{String(n).padStart(2, '0')}</div>
+            <span class="mt-4 block h-0.5 w-10 rounded bg-gold" aria-hidden="true" />
+            <h3 class="mt-5 text-h3">{t(`pricing.s${n}.t`)}</h3>
+            <p class="mt-2 text-muted">{t(`pricing.s${n}.d`)}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
