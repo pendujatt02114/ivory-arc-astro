@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHeading from './SectionHeading.astro';
+import JourneyCard from './JourneyCard.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+
+const regionLabels: Record<string, string> = {
+  'delhi-ncr': 'Delhi–NCR',
+  'uttar-pradesh': 'Uttar Pradesh',
+  uttarakhand: 'Uttarakhand',
+  rajasthan: 'Rajasthan',
+  punjab: 'Punjab',
+  himachal: 'Himachal',
+  jammu: 'Jammu',
+};
+const regionName = (r: string) =>
+  regionLabels[r] ?? r.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+
+const all = await getCollection('journeys', ({ data }) => !data.draft);
+const journeys = all
+  .sort((a, b) => a.data.indicativePerDayINR - b.data.indicativePerDayINR)
+  .slice(0, 6);
+---
+<section id="journeys" class="scroll-mt-24 bg-cream">
+  <div class="container-ed py-16 md:py-24">
+    <SectionHeading
+      eyebrow={t('journeys.eyebrow')}
+      title={t('journeys.title')}
+      intro={t('journeys.intro')}
+    />
+    <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        journeys.map((j) => (
+          <JourneyCard
+            title={j.data.title}
+            regionLabel={regionName(j.data.region)}
+            days={j.data.durationDays}
+            hero={j.data.hero}
+            heroAlt={j.data.heroAlt}
+            summary={j.data.summary}
+            price={`₹${j.data.indicativePerDayINR.toLocaleString('en-IN')}`}
+            fromLabel={t('journeys.from')}
+            perDayLabel={t('journeys.perDay')}
+            ctaLabel={t('cta.estimateThis')}
+          />
+        ))
+      }
+    </div>
+    <p class="mt-8 text-center text-sm text-muted">{t('journeys.note')}</p>
+  </div>
+</section>
