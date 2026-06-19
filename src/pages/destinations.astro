@@ -9,26 +9,27 @@ import { SITE } from '../consts';
 const title = 'Destinations — Ivory Arc Travels';
 const description = `Where we travel across North India — ${SITE.destinationCount} destinations and counting, from Agra and the Taj Mahal to Varanasi, the Golden Temple, Rajasthan, the Himalaya and the great pilgrimage routes. Private journeys shaped around you.`;
 
-// `img` = base path to an optimized photo pair (avif/webp). Omit it for places
-// we cover but don't yet have a photo for — those render an on-brand arch card
-// in the identical layout (drop a photo in and add `img` to swap it in).
+// `img` = base path to an optimized photo pair (avif/webp). Omit it and the card
+// falls back to an on-brand arch placeholder in the identical layout.
 type Place = { img?: string; name: string; region: string; note: string };
 
 const places: Place[] = [
   // Marquee cities first — Agra leads (the Taj is the most-visited monument by international travellers).
-  { name: 'Agra', region: 'Uttar Pradesh', note: 'The Taj Mahal — the monument the world comes to see, plus Agra Fort and Fatehpur Sikri.' },
-  { name: 'Jaipur', region: 'Rajasthan', note: 'The Pink City — Amber Fort, Hawa Mahal and royal bazaars; the third point of the Golden Triangle.' },
+  { img: '/assets/photos/agra', name: 'Agra', region: 'Uttar Pradesh', note: 'The Taj Mahal — the monument the world comes to see, plus Agra Fort and Fatehpur Sikri.' },
+  { img: '/assets/photos/delhi-humayun', name: 'Delhi', region: 'Delhi NCR', note: "India's capital — Humayun's Tomb, the Red Fort and Qutub Minar; the start of the Golden Triangle." },
+  { img: '/assets/photos/jaipur', name: 'Jaipur', region: 'Rajasthan', note: 'The Pink City — Hawa Mahal, Amber Fort and royal bazaars; the third point of the Golden Triangle.' },
   { img: '/assets/destinations/varanasi/varanasi-aarti', name: 'Varanasi', region: 'Uttar Pradesh', note: 'The eternal city — dawn boats on the Ganga and the lamp-lit evening aarti.' },
-  { name: 'Mathura & Vrindavan', region: 'Uttar Pradesh', note: "Krishna's birthplace — twin temple towns of devotion on the Yamuna." },
-  { name: 'Haridwar & Rishikesh', region: 'Uttarakhand', note: 'Where the Ganga leaves the mountains — the Ganga aarti, ashrams and the yoga capital of the world.' },
-  { name: 'Amritsar', region: 'Punjab', note: "The Golden Temple — Sikhism's holiest shrine, gold on water, and the Wagah border ceremony." },
-  // The rest of the network (photographed).
+  { img: '/assets/photos/mathura', name: 'Mathura & Vrindavan', region: 'Uttar Pradesh', note: "Krishna's birthplace — twin temple towns of devotion on the Yamuna." },
+  { img: '/assets/photos/rishikesh', name: 'Haridwar & Rishikesh', region: 'Uttarakhand', note: 'Where the Ganga leaves the mountains — the Ganga aarti, ashrams and the yoga capital of the world.' },
+  { img: '/assets/photos/amritsar', name: 'Amritsar', region: 'Punjab', note: "The Golden Temple — Sikhism's holiest shrine, gold on water, and the Wagah border ceremony." },
+  // The rest of the network.
   { img: '/assets/thumbnails/udaipur', name: 'Udaipur', region: 'Rajasthan', note: 'Lake palaces, marble courtyards and sunset boats on Lake Pichola.' },
   { img: '/assets/thumbnails/jodhpur', name: 'Jodhpur', region: 'Rajasthan', note: 'The blue city beneath the ramparts of Mehrangarh Fort.' },
   { img: '/assets/thumbnails/jaisalmer', name: 'Jaisalmer', region: 'Rajasthan', note: 'A living golden-sandstone fort on the edge of the Thar Desert.' },
   { img: '/assets/thumbnails/pushkar', name: 'Pushkar', region: 'Rajasthan', note: 'A sacred lake town of ghats, temples and the famous camel fair.' },
   { img: '/assets/thumbnails/bikaner', name: 'Bikaner', region: 'Rajasthan', note: 'Junagarh Fort, ornate havelis and old Silk Road trade routes.' },
   { img: '/assets/thumbnails/ranthambore', name: 'Ranthambore', region: 'Rajasthan', note: "India's most storied tiger reserve, wrapped around a hilltop fort." },
+  { img: '/assets/photos/corbett', name: 'Jim Corbett', region: 'Uttarakhand', note: "India's oldest national park — tiger country in the Himalayan foothills." },
   { img: '/assets/thumbnails/ayodhya', name: 'Ayodhya', region: 'Uttar Pradesh', note: 'The Ram Mandir and the spiritual heart of the Sarayu riverlands.' },
   { img: '/assets/thumbnails/khajjiar', name: 'Khajjiar', region: 'Himachal Pradesh', note: 'Alpine meadows ringed by deodar forest — the “mini Switzerland”.' },
   { img: '/assets/thumbnails/solang-valley', name: 'Solang Valley', region: 'Himachal Pradesh', note: 'High-altitude adventure and snow above the Manali valley.' },
@@ -91,14 +92,7 @@ const reasons = [
               ) : (
                 <>
                   <span class="absolute inset-0 bg-gradient-to-br from-teal-800 via-teal-900 to-ink" />
-                  <svg
-                    viewBox="0 0 100 130"
-                    class="absolute left-1/2 top-1/2 h-3/5 w-auto -translate-x-1/2 -translate-y-[58%] text-gold/25 transition-transform duration-500 group-hover:scale-105"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.5"
-                    aria-hidden="true"
-                  >
+                  <svg viewBox="0 0 100 130" class="absolute left-1/2 top-1/2 h-3/5 w-auto -translate-x-1/2 -translate-y-[58%] text-gold/25" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                     <path d="M14 126 V58 C14 30 30 12 50 7 C70 12 86 30 86 58 V126" stroke-linecap="round" />
                     <path d="M50 7 V126" opacity="0.45" />
                   </svg>

@@ -6,8 +6,8 @@ durationDays: 6
 indicativePerDayINR: 24000
 interests: [heritage, luxury]
 travelerTypes: [couples, families]
-hero: /assets/thumbnails/bikaner
-heroAlt: Sandstone fort and palace architecture of North India
+hero: /assets/photos/agra
+heroAlt: The Taj Mahal at dawn, Agra
 days:
   - title: Old & New Delhi
     description: Mughal Delhi and the imperial capital — Jama Masjid, Humayun's Tomb and a quiet drive past Lutyens' avenues, at your own pace.

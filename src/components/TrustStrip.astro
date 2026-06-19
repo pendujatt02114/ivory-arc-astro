@@ -2,44 +2,41 @@
 import { SITE } from '../consts';
 
 /*
-  "Verified & Trusted by" strip — sits directly beneath the hero (i.e. just
-  below the header in the page flow).
-
-  IMPORTANT: the four SVGs referenced below are NEUTRAL PLACEHOLDER wordmarks,
-  not the platforms' real logos. Before launch, replace each file in
-  /public/brand/trust/ with the platform's OFFICIAL logo (from its brand/press
-  kit), keeping the same filename. Only display a platform here if Ivory Arc
-  genuinely has an active, verifiable presence there.
+  "Verified & Trusted by" — sits directly beneath the hero. Logos are the
+  client-supplied marks (cropped from their logo sheet) and sit on a dark band,
+  which is why this strip uses the brand's near-black rather than cream.
+  Replace files in /public/brand/trust/ with official brand-kit assets when
+  available, and only show platforms where Ivory Arc is genuinely listed.
 */
 const platforms = [
-  { name: 'Google', file: '/brand/trust/google.svg' },
-  { name: 'Tripadvisor', file: '/brand/trust/tripadvisor.svg' },
-  { name: 'Viator', file: '/brand/trust/viator.svg' },
-  { name: 'Meta', file: '/brand/trust/meta.svg' },
+  { name: 'Google', file: '/brand/trust/google.webp' },
+  { name: 'Tripadvisor', file: '/brand/trust/tripadvisor.webp' },
+  { name: 'Viator', file: '/brand/trust/viator.webp' },
+  { name: 'Meta', file: '/brand/trust/meta.webp' },
 ];
 ---
-<section class="border-b border-line bg-cream" aria-label="Verified and trusted by">
+<section class="bg-[#0d0d0b]" aria-label="Verified and trusted by">
   <div class="container-ed py-6 md:py-7">
-    <p class="text-center text-xs font-medium uppercase tracking-[0.22em] text-teal-700">
+    <p class="text-center text-xs font-medium uppercase tracking-[0.22em] text-gold">
       Verified &amp; Trusted by
     </p>
-    <ul class="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 sm:gap-x-12 md:gap-x-16">
+    <ul class="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 sm:gap-x-12 md:gap-x-14">
       {
         platforms.map((p) => (
           <li class="flex items-center">
             <img
               src={p.file}
               alt={p.name}
-              height={32}
+              height={28}
               loading="lazy"
               decoding="async"
-              class="h-6 w-auto opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0 md:h-8"
+              class="h-6 w-auto opacity-90 transition hover:opacity-100 md:h-7"
             />
           </li>
         ))
       }
     </ul>
-    <p class="mt-5 text-center text-xs text-ink/55">
+    <p class="mt-5 text-center text-xs text-ivory/55">
       Registered Indian tour operator · GST {SITE.gst} · {SITE.msme} · Secure payments via Razorpay
     </p>
   </div>

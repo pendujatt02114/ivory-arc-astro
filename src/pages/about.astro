@@ -7,15 +7,12 @@ import { SITE } from '../consts';
 
 const title = 'About — Ivory Arc Travels';
 const description =
-  'Ivory Arc is a private travel atelier designing bespoke heritage, spiritual and pilgrimage journeys across North India — transparent pricing, private guides, and no commission-driven shopping stops.';
+  'Ivory Arc Travels is a women-owned, family-run private travel company founded in 2019 by Sonu Tomar — built on firsthand knowledge of every road, temple and city across North India.';
 
-const philosophy = [
-  { t: 'A travel atelier, not an agency', d: 'We don’t sell packages off a shelf. Every itinerary is drawn from scratch around your pace, your interests and the season.' },
-  { t: 'Transparent by design', d: 'Hotels and ground services at actual cost, plus a single, clearly stated 10% coordination fee. Quotes are always in INR, with nothing buried in the price.' },
-  { t: 'Private journeys only', d: 'No group departures and no shared coaches — private vehicles, expert local guides, and time that belongs to you.' },
-  { t: 'No commission-driven stops', d: 'We never route you through emporiums or workshops for a kickback. Your hours on the road are spent on what you came for.' },
-  { t: 'Time is the real luxury', d: 'We design for unhurried mornings and quiet vantage points, not a checklist. The best moments on the road are rarely the rushed ones.' },
-  { t: 'Discretion, end to end', d: 'One team and one point of contact, handling the details quietly so you can simply travel.' },
+const promises = [
+  { t: 'No commission stops', d: 'Never any commission-driven shopping detours — your time on the road is spent on what you came for.' },
+  { t: 'All of North India', d: 'From Agra and the Taj to the Golden Temple, the Ganges and the Himalaya — one team across the whole region.' },
+  { t: 'Private, always', d: 'Your own vehicle, guide and pace — never a fixed group departure or a shared coach.' },
 ];
 ---
 
@@ -23,8 +20,8 @@ const philosophy = [
   <section class="container-ed py-16 md:py-24">
     <SectionHeading
       eyebrow="About"
-      title="Journeys across North India, designed entirely around you."
-      intro="Ivory Arc Travels is a private atelier for heritage, spiritual and pilgrimage travel across North India — from the palaces of Rajasthan to the Ganges, the Himalaya, and the great Hindu and Sikh pilgrimage routes."
+      title="Founded on experience, run with care."
+      intro="Ivory Arc Travels is a women-owned, family-run private travel company — built on firsthand knowledge of every road, temple and city we send you to. Honest. Unhurried. Yours."
       align="left"
     />
 
@@ -33,25 +30,24 @@ const philosophy = [
         <h2 class="text-h3">Our story</h2>
         <div class="mt-4 space-y-5 text-lg text-muted">
           <p>
-            We began with a simple frustration: luxury travel in India is too often sold as fixed
-            packages — padded with hidden markups and detours to shops that pay commission. We built
-            Ivory Arc to do the opposite: to plan privately, price honestly, and put your time first.
+            Ivory Arc Travels was founded in 2019 by <strong class="text-ink">Sonu Tomar</strong>, a
+            passionate traveller who believes exceptional journeys are built on personal experience,
+            meticulous planning and genuine care for every guest. What began as a family-led venture
+            now combines decades of expertise from across the travel ecosystem.
           </p>
           <p>
-            We are based in <strong class="text-ink">Agra</strong>, in the shadow of the Taj Mahal —
-            the monument the world travels to see — and we plan across the length and breadth of North
-            India, from the desert forts of Rajasthan to the ghats of Varanasi, the Golden Temple and
-            the Himalayan foothills.
+            Sonu's father, an <strong class="text-ink">Army veteran</strong>, has been involved in
+            travel operations since 2016 — bringing discipline, reliability and a service-first
+            approach to every itinerary. Her husband contributes over a decade of experience with
+            leading travel management companies, online travel agencies, airlines and hospitality
+            brands, adding deep industry insight and operational excellence.
           </p>
           <p>
-            Planning starts with <strong class="text-ink">IVY</strong>, our in-house planning
-            concierge, who shapes a first itinerary and an indicative price in minutes. For complex,
-            multi-region or special-occasion journeys, our specialists step in with the judgement that
-            only real local knowledge brings.
-          </p>
-          <p>
-            Ivory Arc is a registered Indian tour operator (GST {SITE.gst}), {SITE.msme}. Every
-            journey is billed in INR; the currencies shown elsewhere on the site are indicative only.
+            What truly sets us apart is <strong class="text-ink">firsthand destination knowledge</strong>.
+            Sonu has personally visited every destination in our curated journeys — many of them
+            several times over. That lets us move beyond generic sightseeing to craft experiences that
+            are practical, authentic and thoughtfully designed: every route, stay, activity and local
+            experience chosen from real-world experience, not online research alone.
           </p>
         </div>
       </div>
@@ -59,23 +55,37 @@ const philosophy = [
       <aside class="rounded-lg border border-line bg-cream p-6 lg:self-start">
         <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700">At a glance</h2>
         <dl class="mt-4 space-y-3 text-sm">
+          <div><dt class="text-muted">Founded</dt><dd class="text-ink">2019, by Sonu Tomar — women-owned &amp; family-run</dd></div>
           <div><dt class="text-muted">Where we’re based</dt><dd class="text-ink">{SITE.city}, {SITE.region}</dd></div>
           <div><dt class="text-muted">Where we travel</dt><dd class="text-ink">{SITE.destinationCount} destinations across North India</dd></div>
           <div><dt class="text-muted">How we travel</dt><dd class="text-ink">Private journeys only — your own vehicle, driver and guides</dd></div>
-          <div><dt class="text-muted">How we price</dt><dd class="text-ink">Actual cost + a clear 10% coordination fee · children at 25%</dd></div>
-          <div><dt class="text-muted">Registration</dt><dd class="text-ink">Registered Indian tour operator · {SITE.msme}</dd></div>
+          <div><dt class="text-muted">Registration</dt><dd class="text-ink">Registered Indian tour operator · GST {SITE.gst} · {SITE.msme}</dd></div>
         </dl>
       </aside>
     </div>
 
     <div class="mt-16">
-      <h2 class="text-h3">Our philosophy</h2>
-      <dl class="mt-6 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+      <h2 class="text-h3">Enriching, stress-free, transparent.</h2>
+      <div class="mt-4 max-w-3xl space-y-5 text-lg text-muted">
+        <p>
+          We specialise in private, thoughtfully curated experiences that prioritise quality over
+          volume. Rather than selling standard packages, we start by understanding your interests,
+          travel style and expectations — then build a journey that feels personal and meaningful.
+          Whether you're a solo traveller, a couple, a family or a small private group, we plan around
+          secure stays, trusted local partners, realistic pacing and seamless logistics.
+        </p>
+        <p>
+          Our philosophy is simple: travel should be enriching, stress-free and transparent. It's why
+          we hold ourselves to three promises on every trip.
+        </p>
+      </div>
+
+      <dl class="mt-8 grid gap-4 sm:grid-cols-3">
         {
-          philosophy.map((v) => (
-            <div class="border-t border-line pt-5">
-              <dt class="text-h3">{v.t}</dt>
-              <dd class="mt-2 text-muted">{v.d}</dd>
+          promises.map((p) => (
+            <div class="rounded-lg border-l-2 border-gold bg-cream px-5 py-4">
+              <dt class="font-display text-lg text-ink">{p.t}</dt>
+              <dd class="mt-1 text-sm text-muted">{p.d}</dd>
             </div>
           ))
         }

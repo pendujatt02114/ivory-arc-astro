@@ -7,30 +7,8 @@ interface Props {
 }
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
-
-// The detailed flow is authored in English; the section heading still localises via t().
-const steps = [
-  {
-    t: 'Choose where you want to go',
-    d: 'Pick your destinations and dates and tell us who’s travelling. IVY shapes a first route across North India in minutes — a starting point, never a fixed package.',
-  },
-  {
-    t: 'Headline tickets are already included',
-    d: 'Entry to the major monuments and historic sites on your route — the Taj Mahal, the great forts, the temples — is built into the price from the start.',
-  },
-  {
-    t: 'Add anything you like',
-    d: 'We ask whether you’d like to add another monument, destination or experience. Say yes to as much or as little as you want; the itinerary flexes around you.',
-  },
-  {
-    t: 'Accommodation, only if you want it',
-    d: 'If you’d like us to arrange hotels, they’re booked at actual rates plus a single, clearly stated 10% coordination fee — never a hidden markup.',
-  },
-  {
-    t: 'Refine your estimate until it’s right',
-    d: 'You get an indicative price you can shape yourself — add or drop experiences, destinations or days, and the estimate updates with you.',
-  },
-];
+// All copy is localised via t() — keys live in src/i18n/ui.ts for every language.
+const steps = [1, 2, 3, 4, 5] as const;
 ---
 <section id="how-it-works" class="scroll-mt-24 bg-cream">
   <div class="container-ed py-16 md:py-24">
@@ -42,15 +20,15 @@ const steps = [
 
     <ol class="mt-12 space-y-8 md:space-y-10">
       {
-        steps.map((s, i) => (
+        steps.map((n) => (
           <li class="grid gap-3 sm:grid-cols-[auto_1fr] sm:gap-6">
             <div class="flex items-baseline gap-3 sm:flex-col sm:items-start sm:gap-2">
-              <span class="font-display text-4xl leading-none text-teal">{String(i + 1).padStart(2, '0')}</span>
+              <span class="font-display text-4xl leading-none text-teal">{String(n).padStart(2, '0')}</span>
               <span class="h-0.5 w-10 rounded bg-gold sm:mt-1" aria-hidden="true" />
             </div>
             <div class="sm:pt-1">
-              <h3 class="text-h3">{s.t}</h3>
-              <p class="mt-2 max-w-2xl text-muted">{s.d}</p>
+              <h3 class="text-h3">{t(`pricing.s${n}.t`)}</h3>
+              <p class="mt-2 max-w-2xl text-muted">{t(`pricing.s${n}.d`)}</p>
             </div>
           </li>
         ))
@@ -59,27 +37,15 @@ const steps = [
 
     <div class="mt-12 grid gap-4 sm:grid-cols-2">
       <div class="rounded-lg border-l-2 border-gold bg-ivory px-5 py-4">
-        <h3 class="font-display text-lg text-ink">Tier-based pricing</h3>
-        <p class="mt-1 text-sm text-muted">
-          Your per-day rate reflects your group size and the comfort tier you choose — from
-          comfortable to premium to luxury. Larger groups and simpler stays cost less per person;
-          the level is always yours to set.
-        </p>
+        <h3 class="font-display text-lg text-ink">{t('pricing.tier.t')}</h3>
+        <p class="mt-1 text-sm text-muted">{t('pricing.tier.d')}</p>
       </div>
       <div class="rounded-lg border-l-2 border-gold bg-ivory px-5 py-4">
-        <h3 class="font-display text-lg text-ink">Children travel for less</h3>
-        <p class="mt-1 text-sm text-muted">
-          Children are charged at just 25% of the adult rate, so family journeys stay affordable
-          without compromising on the experience.
-        </p>
+        <h3 class="font-display text-lg text-ink">{t('pricing.child.t')}</h3>
+        <p class="mt-1 text-sm text-muted">{t('pricing.child.d')}</p>
       </div>
     </div>
 
-    <p class="mt-8 rounded-lg border border-line bg-ivory px-5 py-4 text-sm text-ink">
-      <strong class="font-semibold">Every estimate is reviewed by us.</strong> IVY gives you a
-      transparent starting range in INR; the final price is always confirmed and finalised by the
-      Ivory Arc team — checked for availability, season and the exact shape of your journey before
-      anything is booked. Taxes (GST) are shown separately.
-    </p>
+    <p class="mt-8 rounded-lg border border-line bg-ivory px-5 py-4 text-sm text-ink">{t('pricing.confirm')}</p>
   </div>
 </section>

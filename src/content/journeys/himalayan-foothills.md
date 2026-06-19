@@ -6,8 +6,8 @@ durationDays: 7
 indicativePerDayINR: 26000
 interests: [mountains]
 travelerTypes: [families, couples]
-hero: /assets/thumbnails/solang-valley
-heroAlt: The snow-ringed Solang Valley near Manali, Himachal Pradesh
+hero: /assets/photos/shimla-train
+heroAlt: The Kalka–Shimla toy train through deodar forest
 days:
   - title: Shimla — the summer capital
     description: The Mall and the toy-train country, with a heritage stay among the deodars.

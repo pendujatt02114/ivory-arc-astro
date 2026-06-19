@@ -6,8 +6,8 @@ durationDays: 6
 indicativePerDayINR: 23000
 interests: [spiritual, mountains]
 travelerTypes: [couples, seniors]
-hero: /assets/thumbnails/khajjiar
-heroAlt: Forested Himalayan foothills of northern India
+hero: /assets/photos/rishikesh
+heroAlt: The Lakshman Jhula and the Ganga at Rishikesh
 days:
   - title: Haridwar — Har Ki Pauri
     description: The Ganga arrives on the plains; the evening aarti at Har Ki Pauri, lamps carried downstream into the dusk.

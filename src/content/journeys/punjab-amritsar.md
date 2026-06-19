@@ -6,8 +6,8 @@ durationDays: 5
 indicativePerDayINR: 21000
 interests: [spiritual, heritage]
 travelerTypes: [families, couples]
-hero: /assets/thumbnails/patiala
-heroAlt: Royal architecture and gardens of Patiala, Punjab
+hero: /assets/photos/amritsar
+heroAlt: The Golden Temple, Amritsar
 days:
   - title: Amritsar — the Golden Temple
     description: Sikhism's holiest shrine, gold on still water, with time for the langar and the quiet of the early morning.
