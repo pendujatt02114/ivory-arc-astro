@@ -6,6 +6,17 @@ export const SITE = {
   tagline: 'Curated Heritage & Spiritual Journeys',
   promise: 'Private journeys across North India.',
   gst: '09AYIPT0745R2ZH',
+  msme: 'MSME Certified',
+  email: 'hello@ivoryarctravels.com',
+  phoneDisplay: '+91 74550 37397',
+  phoneTel: '+917455037397',
+  addressLine: 'Nehru Enclave',
+  city: 'Agra',
+  postcode: '282001',
+  region: 'Uttar Pradesh',
+  country: 'India',
+  // How many places we can route a private journey through across North India.
+  destinationCount: 57,
 } as const;
 
 // WhatsApp. IVY is the primary conversational path; the specialist line is escalation only

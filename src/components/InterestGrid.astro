@@ -1,6 +1,6 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-import Picture from './Picture.astro';
+import ExperienceShowcase from './ExperienceShowcase.svelte';
 import { useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
@@ -9,45 +9,61 @@ interface Props {
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 
-const items = [
-  { key: 'heritage', img: 'jodhpur', alt: 'The blue city of Jodhpur beneath Mehrangarh Fort' },
-  { key: 'spiritual', img: 'ayodhya', alt: 'The Ram Mandir at Ayodhya, illuminated' },
-  { key: 'wildlife', img: 'ranthambore', alt: 'A tiger in Ranthambore National Park' },
-  { key: 'mountains', img: 'khajjiar', alt: 'Alpine meadows at Khajjiar, Himachal Pradesh' },
-  { key: 'pilgrimage', img: 'vaishno-devi', alt: 'The temple-lined pilgrimage trail to Vaishno Devi' },
-  { key: 'luxury', img: 'udaipur', alt: 'A lake palace in Udaipur at dusk' },
-] as const;
+const V = '/assets/destinations/varanasi/varanasi-aarti';
+const T = (s: string) => `/assets/thumbnails/${s}`;
+
+// Photos cycle within each interest so the section never looks static. Captions
+// describe the SUBJECT of each photograph (monument / place / activity) — kept
+// deliberately different from the Destinations grid (city + state).
+const frames = {
+  heritage: [
+    { base: T('jodhpur'), subject: 'Mehrangarh Fort, Jodhpur', line: 'Ramparts towering over the blue city', alt: 'Mehrangarh Fort above Jodhpur' },
+    { base: T('bikaner'), subject: 'Junagarh Fort, Bikaner', line: 'Carved sandstone courts of the Rathores', alt: 'Junagarh Fort, Bikaner' },
+    { base: T('udaipur'), subject: 'City Palace, Udaipur', line: 'Marble balconies above Lake Pichola', alt: 'City Palace, Udaipur' },
+    { base: T('jaisalmer'), subject: 'Jaisalmer Fort', line: 'A living fort in golden stone', alt: 'Jaisalmer Fort at dusk' },
+    { base: T('patiala'), subject: 'Qila Mubarak, Patiala', line: 'Royal Punjab’s painted durbar halls', alt: 'Qila Mubarak, Patiala' },
+  ],
+  spiritual: [
+    { base: V, subject: 'Ganga Aarti, Varanasi', line: 'Lamp-lit evening prayer on the ghats', alt: 'Ganga Aarti at Varanasi' },
+    { base: T('pushkar'), subject: 'Brahma Ghats, Pushkar', line: 'A sacred lake circled by temples', alt: 'Ghats at Pushkar' },
+    { base: T('ayodhya'), subject: 'Ram Mandir, Ayodhya', line: 'The illuminated shrine on the Sarayu', alt: 'Ram Mandir, Ayodhya' },
+    { base: T('vaishno-devi'), subject: 'Trikuta Hills, Vaishno Devi', line: 'The mountain shrine of the Mother Goddess', alt: 'Trikuta hills, Vaishno Devi' },
+  ],
+  wildlife: [
+    { base: T('ranthambore'), subject: 'Ranthambore', line: 'Tiger country around a hilltop fort', alt: 'Tiger reserve at Ranthambore' },
+  ],
+  mountains: [
+    { base: T('khajjiar'), subject: 'Khajjiar', line: 'Meadows ringed by deodar — the “mini Switzerland”', alt: 'Alpine meadows at Khajjiar' },
+    { base: T('solang-valley'), subject: 'Solang Valley', line: 'Snow and high air above Manali', alt: 'Solang Valley near Manali' },
+  ],
+  pilgrimage: [
+    { base: T('vaishno-devi'), subject: 'Vaishno Devi', line: 'The revered cave-shrine trek', alt: 'Pilgrimage trail to Vaishno Devi' },
+    { base: T('ayodhya'), subject: 'Ayodhya', line: 'A birthplace pilgrimage on the Sarayu', alt: 'Ayodhya' },
+    { base: T('pushkar'), subject: 'Pushkar', line: 'Ritual bathing ghats around the holy lake', alt: 'Pushkar ghats' },
+    { base: V, subject: 'Varanasi', line: 'India’s eternal city of pilgrimage', alt: 'Varanasi ghats' },
+  ],
+  luxury: [
+    { base: T('udaipur'), subject: 'Lake Palace, Udaipur', line: 'Island palaces afloat on Pichola', alt: 'Lake palace, Udaipur' },
+    { base: T('jaisalmer'), subject: 'Desert camps, Jaisalmer', line: 'Dunes, firelight and Thar stars', alt: 'Desert near Jaisalmer' },
+    { base: T('jodhpur'), subject: 'Palace stays, Jodhpur', line: 'Heritage suites over the blue city', alt: 'Heritage stay, Jodhpur' },
+  ],
+} as const;
+
+const order = ['heritage', 'spiritual', 'wildlife', 'mountains', 'pilgrimage', 'luxury'] as const;
+
+const items = order.map((key) => ({
+  key,
+  label: t(`interest.${key}`),
+  href: `/experiences/${key}`,
+  frames: frames[key] as unknown as {
+    base: string;
+    subject: string;
+    line: string;
+    alt: string;
+  }[],
+}));
 ---
 <section id="experiences" class="container-ed scroll-mt-24 py-16 md:py-24">
   <SectionHeading eyebrow={t('interests.eyebrow')} title={t('interests.title')} />
-  <ul class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5">
-    {
-      items.map((it) => (
-        <li>
-          <a
-            href={`/experiences/${it.key}`}
-            class="group relative block overflow-hidden rounded-lg"
-            data-cta
-            data-cta-target="nav"
-            data-cta-location="interest_grid"
-            data-cta-label={t(`interest.${it.key}`)}
-          >
-            <Picture
-              base={`/assets/thumbnails/${it.img}`}
-              alt={it.alt}
-              width={800}
-              height={1000}
-              sizes="(min-width: 768px) 33vw, 50vw"
-              class="block aspect-[4/5] w-full"
-              imgClass="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <span class="pointer-events-none absolute inset-0 bg-gradient-to-t from-teal-900/80 via-teal-900/10 to-transparent" />
-            <h3 class="absolute inset-x-0 bottom-0 p-4 font-display text-xl !text-ivory">
-              {t(`interest.${it.key}`)}
-            </h3>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+  <ExperienceShowcase items={items} client:visible />
 </section>

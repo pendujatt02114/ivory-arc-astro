@@ -7,13 +7,15 @@ import { SITE } from '../consts';
 
 const title = 'About — Ivory Arc Travels';
 const description =
-  'Ivory Arc is a private travel atelier designing bespoke heritage and spiritual journeys across North India — transparent pricing, private guides, and no commission-driven shopping stops.';
+  'Ivory Arc is a private travel atelier designing bespoke heritage, spiritual and pilgrimage journeys across North India — transparent pricing, private guides, and no commission-driven shopping stops.';
 
-const values = [
+const philosophy = [
   { t: 'A travel atelier, not an agency', d: 'We don’t sell packages off a shelf. Every itinerary is drawn from scratch around your pace, your interests and the season.' },
   { t: 'Transparent by design', d: 'Hotels and ground services at actual cost, plus a single, clearly stated 10% coordination fee. Quotes are always in INR, with nothing buried in the price.' },
   { t: 'Private journeys only', d: 'No group departures and no shared coaches — private vehicles, expert local guides, and time that belongs to you.' },
   { t: 'No commission-driven stops', d: 'We never route you through emporiums or workshops for a kickback. Your hours on the road are spent on what you came for.' },
+  { t: 'Time is the real luxury', d: 'We design for unhurried mornings and quiet vantage points, not a checklist. The best moments on the road are rarely the rushed ones.' },
+  { t: 'Discretion, end to end', d: 'One team and one point of contact, handling the details quietly so you can simply travel.' },
 ];
 ---
 
@@ -22,38 +24,63 @@ const values = [
     <SectionHeading
       eyebrow="About"
       title="Journeys across North India, designed entirely around you."
-      intro="Ivory Arc Travels is a private atelier for heritage and spiritual travel across North India — from the palaces of Rajasthan to the Ganges, the Himalaya, and the Sikh and Hindu pilgrimage routes."
+      intro="Ivory Arc Travels is a private atelier for heritage, spiritual and pilgrimage travel across North India — from the palaces of Rajasthan to the Ganges, the Himalaya, and the great Hindu and Sikh pilgrimage routes."
       align="left"
     />
 
-    <div class="mt-8 max-w-2xl space-y-5 text-lg text-muted">
-      <p>
-        We began with a simple frustration: luxury travel in India is too often sold as fixed
-        packages, padded with hidden markups and detours to shops that pay commission. We built
-        Ivory Arc to do the opposite — to plan privately, price honestly, and put your time first.
-      </p>
-      <p>
-        Planning starts with <strong class="text-ink">IVY</strong>, our in-house planning concierge,
-        who shapes a first itinerary and an indicative price in minutes. For complex, multi-region or
-        special-occasion journeys, our specialists step in with the judgement that only real local
-        knowledge brings.
-      </p>
-      <p>
-        We are a registered Indian tour operator (GST {SITE.gst}). Every journey is billed in INR;
-        the currencies shown elsewhere on the site are indicative only.
-      </p>
+    <div class="mt-10 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+      <div>
+        <h2 class="text-h3">Our story</h2>
+        <div class="mt-4 space-y-5 text-lg text-muted">
+          <p>
+            We began with a simple frustration: luxury travel in India is too often sold as fixed
+            packages — padded with hidden markups and detours to shops that pay commission. We built
+            Ivory Arc to do the opposite: to plan privately, price honestly, and put your time first.
+          </p>
+          <p>
+            We are based in <strong class="text-ink">Agra</strong>, in the shadow of the Taj Mahal —
+            the monument the world travels to see — and we plan across the length and breadth of North
+            India, from the desert forts of Rajasthan to the ghats of Varanasi, the Golden Temple and
+            the Himalayan foothills.
+          </p>
+          <p>
+            Planning starts with <strong class="text-ink">IVY</strong>, our in-house planning
+            concierge, who shapes a first itinerary and an indicative price in minutes. For complex,
+            multi-region or special-occasion journeys, our specialists step in with the judgement that
+            only real local knowledge brings.
+          </p>
+          <p>
+            Ivory Arc is a registered Indian tour operator (GST {SITE.gst}), {SITE.msme}. Every
+            journey is billed in INR; the currencies shown elsewhere on the site are indicative only.
+          </p>
+        </div>
+      </div>
+
+      <aside class="rounded-lg border border-line bg-cream p-6 lg:self-start">
+        <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700">At a glance</h2>
+        <dl class="mt-4 space-y-3 text-sm">
+          <div><dt class="text-muted">Where we’re based</dt><dd class="text-ink">{SITE.city}, {SITE.region}</dd></div>
+          <div><dt class="text-muted">Where we travel</dt><dd class="text-ink">{SITE.destinationCount} destinations across North India</dd></div>
+          <div><dt class="text-muted">How we travel</dt><dd class="text-ink">Private journeys only — your own vehicle, driver and guides</dd></div>
+          <div><dt class="text-muted">How we price</dt><dd class="text-ink">Actual cost + a clear 10% coordination fee · children at 25%</dd></div>
+          <div><dt class="text-muted">Registration</dt><dd class="text-ink">Registered Indian tour operator · {SITE.msme}</dd></div>
+        </dl>
+      </aside>
     </div>
 
-    <dl class="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2">
-      {
-        values.map((v) => (
-          <div class="border-t border-line pt-5">
-            <dt class="text-h3">{v.t}</dt>
-            <dd class="mt-2 text-muted">{v.d}</dd>
-          </div>
-        ))
-      }
-    </dl>
+    <div class="mt-16">
+      <h2 class="text-h3">Our philosophy</h2>
+      <dl class="mt-6 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+        {
+          philosophy.map((v) => (
+            <div class="border-t border-line pt-5">
+              <dt class="text-h3">{v.t}</dt>
+              <dd class="mt-2 text-muted">{v.d}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
 
     <div class="mt-14 flex flex-col items-start gap-3 sm:flex-row">
       <WhatsAppLink variant="primary" location="about_footer" />

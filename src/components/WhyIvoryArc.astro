@@ -1,22 +1,50 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 import { useTranslations, type Lang } from '../i18n/ui';
+import { SITE } from '../consts';
 
 interface Props {
   lang?: Lang;
 }
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
-const points = [1, 2, 3, 4] as const;
+
+// "What sets us apart" — authored in English; the heading localises via t().
+const points = [
+  {
+    t: 'Plan with the people who run your trip',
+    d: 'No call centre and no middlemen. The team that quotes your journey is the same team arranging it on the ground — and IVY, our planning concierge, is with you from the first message.',
+  },
+  {
+    t: 'Private by design',
+    d: 'Private vehicles, expert local guides and time that belongs to you. No group departures, no shared coaches, no fixed pace.',
+  },
+  {
+    t: 'No commission-driven detours',
+    d: 'We never route you through emporiums or workshops for a kickback. Your hours on the road are spent on what you actually came for.',
+  },
+  {
+    t: 'Transparent pricing, nothing buried',
+    d: 'Major-monument tickets included, hotels at actual cost, and a single clearly stated 10% coordination fee. Quotes are in INR, with children at 25% of the adult rate.',
+  },
+  {
+    t: 'However complex, we’ve got your back',
+    d: `${SITE.destinationCount} destinations across the length and breadth of North India, multi-region itineraries and special requests — handled by one team and one point of contact, start to finish.`,
+  },
+  {
+    t: 'A registered, accountable operator',
+    d: `GST-registered (${SITE.gst}) and ${SITE.msme}, with payments handled securely through Razorpay. Everything on the record, nothing left vague.`,
+  },
+];
 ---
 <section id="why" class="container-ed scroll-mt-24 py-16 md:py-24">
   <SectionHeading eyebrow={t('why.eyebrow')} title={t('why.title')} />
   <dl class="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2">
     {
-      points.map((n) => (
+      points.map((p) => (
         <div class="border-t border-line pt-5">
-          <dt class="text-h3">{t(`why.p${n}.t`)}</dt>
-          <dd class="mt-2 text-muted">{t(`why.p${n}.d`)}</dd>
+          <dt class="text-h3">{p.t}</dt>
+          <dd class="mt-2 text-muted">{p.d}</dd>
         </div>
       ))
     }
