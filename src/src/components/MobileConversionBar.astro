@@ -1,0 +1,68 @@
+---
+import { waHref, IVY_DEFAULT_MESSAGE } from '../lib/whatsapp';
+
+interface Props {
+  emphasis?: 'estimate' | 'ivy'; // which button is the gold primary
+}
+const { emphasis = 'estimate' } = Astro.props;
+const ivy = waHref('ivy', IVY_DEFAULT_MESSAGE);
+const estimatePrimary = emphasis === 'estimate';
+---
+<nav class="conversion-bar lg:hidden" aria-label="Quick actions">
+  <a
+    href="/plan"
+    class:list={['cb-btn', estimatePrimary ? 'cb-primary' : 'cb-secondary']}
+    data-cta
+    data-cta-target="estimator"
+    data-cta-location="mobile_bar"
+  >
+    Get Estimate
+  </a>
+  <a
+    href={ivy}
+    class:list={['cb-btn', estimatePrimary ? 'cb-secondary' : 'cb-primary']}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-cta
+    data-cta-target="ivy"
+    data-cta-location="mobile_bar"
+  >
+    Chat with IVY
+  </a>
+</nav>
+
+<style>
+  .conversion-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem calc(0.5rem + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--color-ivory) 94%, transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid var(--color-line);
+  }
+  .cb-btn {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .cb-primary {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+  .cb-secondary {
+    background: transparent;
+    color: var(--color-teal);
+    border: 1px solid var(--color-teal);
+  }
+</style>

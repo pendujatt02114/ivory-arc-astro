@@ -1,0 +1,8 @@
+---
+import ExperiencesBody from '../../components/pages/ExperiencesBody.astro';
+export function getStaticPaths() {
+  return ['heritage', 'spiritual', 'pilgrimage', 'mountains', 'wildlife', 'luxury'].map((interest) => ({ params: { interest } }));
+}
+const { interest } = Astro.params;
+---
+<ExperiencesBody lang="en" interest={interest as string} />
