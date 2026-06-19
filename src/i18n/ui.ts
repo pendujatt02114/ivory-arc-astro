@@ -9,7 +9,7 @@
     t('hero.title')
 */
 
-export const LANGS = ['en', 'es', 'de', 'fr'] as const;
+export const LANGS = ['en', 'es', 'de', 'fr', 'it', 'ru'] as const;
 export type Lang = (typeof LANGS)[number];
 export const defaultLang: Lang = 'en';
 
@@ -18,6 +18,8 @@ export const languageNames: Record<Lang, string> = {
   es: 'Español',
   de: 'Deutsch',
   fr: 'Français',
+  it: 'Italiano',
+  ru: 'Русский',
 };
 
 type Dict = Record<string, string>;
@@ -173,7 +175,65 @@ const fr: Dict = {
 };
 
 
-export const ui: Record<Lang, Dict> = { en, es, de, fr };
+const it: Dict = {
+  'hero.eyebrow': 'Viaggi privati di lusso · India del Nord',
+  'hero.title': 'Viaggi nell’India del Nord, disegnati interamente su di te.',
+  'hero.sub':
+    'Prezzi trasparenti, nessuna sosta per acquisti su commissione e un viaggio privato pianificato con cura — dai palazzi del Rajasthan al Gange e all’Himalaya.',
+  'cta.ivy': 'Chatta con IVY',
+  'cta.estimate': 'Richiedi un preventivo',
+  'cta.estimateThis': 'Calcola questo viaggio',
+  'pricing.eyebrow': 'Come funziona il prezzo',
+  'pricing.title': 'Trasparente per scelta.',
+  'interests.eyebrow': 'Trova il tuo viaggio',
+  'interests.title': 'Viaggia secondo ciò che ti ispira.',
+  'interest.heritage': 'Patrimonio',
+  'interest.spiritual': 'Spirituale',
+  'interest.wildlife': 'Natura',
+  'interest.mountains': 'Montagne',
+  'interest.pilgrimage': 'Pellegrinaggio',
+  'interest.luxury': 'Lusso',
+  'journeys.eyebrow': 'Viaggi di esempio',
+  'journeys.title': 'Un’idea di ciò che è possibile.',
+  'journeys.from': 'da',
+  'journeys.perDay': '/ giorno',
+  'why.eyebrow': 'Perché Ivory Arc',
+  'why.title': 'Un atelier di viaggio, non un’agenzia.',
+  'ivy.eyebrow': 'Pianifica con IVY',
+  'ivy.title': 'Il tuo viaggio, disegnato in pochi minuti.',
+  'lang.label': 'Lingua',
+};
+
+const ru: Dict = {
+  'hero.eyebrow': 'Частные люкс-путешествия · Северная Индия',
+  'hero.title': 'Путешествия по Северной Индии, созданные полностью под вас.',
+  'hero.sub':
+    'Прозрачные цены, никаких остановок ради торговых комиссий и частное путешествие, спланированное с заботой — от дворцов Раджастхана до Ганга и Гималаев.',
+  'cta.ivy': 'Написать IVY',
+  'cta.estimate': 'Получить расчёт',
+  'cta.estimateThis': 'Рассчитать это путешествие',
+  'pricing.eyebrow': 'Как формируется цена',
+  'pricing.title': 'Прозрачность как принцип.',
+  'interests.eyebrow': 'Найдите своё путешествие',
+  'interests.title': 'Путешествуйте по зову души.',
+  'interest.heritage': 'Наследие',
+  'interest.spiritual': 'Духовное',
+  'interest.wildlife': 'Природа',
+  'interest.mountains': 'Горы',
+  'interest.pilgrimage': 'Паломничество',
+  'interest.luxury': 'Люкс',
+  'journeys.eyebrow': 'Примеры путешествий',
+  'journeys.title': 'Представление о возможном.',
+  'journeys.from': 'от',
+  'journeys.perDay': '/ день',
+  'why.eyebrow': 'Почему Ivory Arc',
+  'why.title': 'Ателье путешествий, а не турагентство.',
+  'ivy.eyebrow': 'Планируйте с IVY',
+  'ivy.title': 'Ваше путешествие, созданное за минуты.',
+  'lang.label': 'Язык',
+};
+
+export const ui: Record<Lang, Dict> = { en, es, de, fr, it, ru };
 
 export function useTranslations(lang: string | undefined) {
   const l = (LANGS as readonly string[]).includes(lang ?? '') ? (lang as Lang) : defaultLang;

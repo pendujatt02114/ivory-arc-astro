@@ -15,13 +15,13 @@ export default defineConfig({
     sitemap({
       i18n: {
         defaultLocale: 'en',
-        locales: { en: 'en', es: 'es', de: 'de', fr: 'fr' },
+        locales: { en: 'en', es: 'es', de: 'de', fr: 'fr', it: 'it', ru: 'ru' },
       },
     }),
   ],
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'es', 'de', 'fr'],
+    locales: ['en', 'es', 'de', 'fr', 'it', 'ru'],
     routing: { prefixDefaultLocale: false }, // English at root; others under /es, /de, /fr
   },
   vite: { plugins: [tailwindcss()] },

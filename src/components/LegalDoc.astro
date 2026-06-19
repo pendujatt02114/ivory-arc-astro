@@ -14,15 +14,8 @@ const { title, description, canonical, heading, updated = '—' } = Astro.props;
 <BaseLayout title={title} description={description} canonical={canonical}>
   <section class="container-ed py-16 md:py-24">
     <div class="max-w-3xl">
-      <div class="mb-8 rounded-lg border border-gold/60 bg-cream p-4 text-sm text-ink">
-        <strong class="font-semibold">Draft template — not legal advice.</strong>
-        This page is a starting point only. Have it reviewed and finalized by a qualified lawyer for
-        Indian travel-trade, consumer and data-protection law before you publish. Replace every
-        bracketed note with your own terms.
-      </div>
-
       <h1 class="text-h2">{heading}</h1>
-      <p class="mt-2 text-sm text-muted">Last updated: {updated}</p>
+      <p class="mt-2 text-sm text-muted">Effective date: {updated}</p>
 
       <div class="legal-prose mt-8">
         <slot />

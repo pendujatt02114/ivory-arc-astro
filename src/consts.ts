@@ -15,7 +15,7 @@ export const WHATSAPP = {
   specialist: '917455037397',
 } as const;
 
-export const LOCALES = ['en', 'es', 'de', 'fr'] as const;
+export const LOCALES = ['en', 'es', 'de', 'fr', 'it', 'ru'] as const;
 export type Locale = (typeof LOCALES)[number];
 
 // Display only — every journey is billed in INR.
