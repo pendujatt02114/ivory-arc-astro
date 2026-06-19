@@ -1,0 +1,51 @@
+---
+/*
+  Accept-Language suggestion banner. Client-only so it never affects crawlers or
+  canonical/hreflang (those remain the SEO mechanism). Shows once; the choice is
+  remembered in the `ia_lang` cookie. Never auto-redirects.
+*/
+---
+<script is:inline>
+  (function () {
+    try {
+      var MSG = {
+        es: ['¿Ver este sitio en español?', 'Cambiar', 'Cerrar'],
+        de: ['Diese Seite auf Deutsch ansehen?', 'Wechseln', 'Schließen'],
+        fr: ['Voir ce site en français ?', 'Changer', 'Fermer'],
+        it: ['Vedere questo sito in italiano?', 'Cambia', 'Chiudi'],
+        ru: ['Открыть сайт на русском?', 'Переключить', 'Закрыть'],
+      };
+      var LOCALES = ['es', 'de', 'fr', 'it', 'ru'];
+      function getCookie(n) { var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)')); return m ? decodeURIComponent(m[1]) : ''; }
+      function setCookie(n, v) { document.cookie = n + '=' + encodeURIComponent(v) + '; path=/; max-age=' + (60 * 60 * 24 * 180) + '; samesite=lax'; }
+      if (getCookie('ia_lang')) return;
+      var path = location.pathname;
+      var seg = path.split('/')[1];
+      var current = LOCALES.indexOf(seg) >= 0 ? seg : 'en';
+      var pref = '';
+      var langs = navigator.languages || [navigator.language || ''];
+      for (var i = 0; i < langs.length; i++) {
+        var base = (langs[i] || '').slice(0, 2).toLowerCase();
+        if (base === 'en') { pref = 'en'; break; }
+        if (LOCALES.indexOf(base) >= 0) { pref = base; break; }
+      }
+      if (!pref || pref === 'en' || pref === current) return;
+      var rest = current === 'en' ? path : (path.replace('/' + current, '') || '/');
+      if (rest === '') rest = '/';
+      var target = '/' + pref + (rest === '/' ? '' : rest);
+      var m = MSG[pref];
+      var bar = document.createElement('div');
+      bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', m[0]);
+      bar.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:60;display:flex;gap:.75rem;align-items:center;justify-content:center;flex-wrap:wrap;background:#0e4a47;color:#fffefb;padding:.6rem 1rem;font:500 .9rem/1.3 system-ui,-apple-system,sans-serif;box-shadow:0 1px 8px rgba(0,0,0,.22)';
+      var span = document.createElement('span'); span.textContent = m[0];
+      var go = document.createElement('a'); go.href = target; go.textContent = m[1];
+      go.style.cssText = 'background:#d8b659;color:#22302d;padding:.35rem .95rem;border-radius:.4rem;font-weight:600;text-decoration:none';
+      go.addEventListener('click', function () { setCookie('ia_lang', pref); });
+      var close = document.createElement('button'); close.type = 'button'; close.textContent = m[2]; close.setAttribute('aria-label', m[2]);
+      close.style.cssText = 'background:transparent;color:#fffefb;border:1px solid rgba(255,255,255,.5);padding:.35rem .85rem;border-radius:.4rem;font:inherit;cursor:pointer';
+      close.addEventListener('click', function () { setCookie('ia_lang', 'dismiss'); bar.remove(); });
+      bar.appendChild(span); bar.appendChild(go); bar.appendChild(close);
+      document.body.appendChild(bar);
+    } catch (e) { /* never block the page */ }
+  })();
+</script>

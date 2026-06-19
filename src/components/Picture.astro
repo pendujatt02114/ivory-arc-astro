@@ -4,13 +4,17 @@
   Pass `base` as the path without extension, e.g. "/assets/destinations/patiala".
   Set `eager` for the LCP image; everything else lazy-loads on scroll.
   width/height are required to reserve space and prevent layout shift.
+  Optionally pass `widths` (e.g. [640,960,1280]) to serve responsive variants
+  named `${base}-${w}.{avif,webp}`; `width` is then treated as the native width.
 */
+import { srcset } from '../lib/responsive';
 interface Props {
   base: string;
   alt: string;
   width: number;
   height: number;
   sizes?: string;
+  widths?: number[];
   eager?: boolean;
   class?: string;
   imgClass?: string;
@@ -21,14 +25,19 @@ const {
   width,
   height,
   sizes,
+  widths,
   eager = false,
   class: cls,
   imgClass,
 } = Astro.props;
+const hasSet = Array.isArray(widths) && widths.length > 0;
+const avif = hasSet ? srcset(base, 'avif', widths!, width) : `${base}.avif`;
+const webp = hasSet ? srcset(base, 'webp', widths!, width) : `${base}.webp`;
+const resolvedSizes = sizes ?? (hasSet ? '100vw' : undefined);
 ---
 <picture class={cls}>
-  <source srcset={`${base}.avif`} type="image/avif" sizes={sizes} />
-  <source srcset={`${base}.webp`} type="image/webp" sizes={sizes} />
+  <source srcset={avif} type="image/avif" sizes={resolvedSizes} />
+  <source srcset={webp} type="image/webp" sizes={resolvedSizes} />
   <img
     src={`${base}.webp`}
     alt={alt}

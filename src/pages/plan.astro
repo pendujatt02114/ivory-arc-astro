@@ -1,27 +1,4 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PricingSteps from '../components/PricingSteps.astro';
-import Estimator from '../components/Estimator.svelte';
-
-const title = 'Plan your journey — Ivory Arc Travels';
-const description =
-  'Shape a private North India journey and see an honest, indicative price in INR. No packages, no hidden markups — your exact quote is built with IVY, hotels at actual cost plus a clear 10% coordination fee.';
+import PlanBody from '../components/pages/PlanBody.astro';
 ---
-<BaseLayout title={title} description={description} canonical="/plan" barEmphasis="ivy">
-  <section class="container-ed py-14 md:py-20">
-    <div class="max-w-2xl">
-      <p class="text-xs font-medium uppercase tracking-[0.24em] text-teal-700">Plan your journey</p>
-      <h1 class="mt-4 text-display">Shape your journey, see an indicative price.</h1>
-      <p class="mt-5 text-lg text-muted">
-        Tell us the essentials and we'll show an honest, indicative range — always in INR.
-        There are no fixed packages and no markups buried in the price; your exact quote is
-        built with IVY, hotels at actual cost plus a clear 10% coordination fee.
-      </p>
-    </div>
-    <div class="mt-10">
-      <Estimator client:idle />
-    </div>
-  </section>
-
-  <PricingSteps />
-</BaseLayout>
+<PlanBody lang="en" />
