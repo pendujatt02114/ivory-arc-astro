@@ -1,9 +1,0 @@
----
-import ContactBody from '../../components/pages/ContactBody.astro';
-import type { Lang } from '../../i18n/ui';
-export function getStaticPaths() {
-  return ['es', 'de', 'fr', 'it', 'ru'].map((locale) => ({ params: { locale } }));
-}
-const { locale } = Astro.params;
----
-<ContactBody lang={locale as Lang} />
