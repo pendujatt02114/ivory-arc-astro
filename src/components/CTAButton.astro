@@ -1,0 +1,49 @@
+---
+/*
+  The single button primitive. Variants encode the brand CTA hierarchy:
+    primary         gold fill (the main action on the page)
+    secondary       teal outline (on light backgrounds)
+    secondary-light  ivory outline (on teal/dark backgrounds)
+    tertiary        inline text link (e.g. the specialist escalation)
+  Analytics fire automatically via the [data-cta] attributes (see lib/analytics.ts).
+*/
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'secondary-light' | 'tertiary';
+  label?: string;
+  target?: string; // analytics: estimator | ivy | specialist | nav | other
+  location?: string; // analytics: page area
+  external?: boolean;
+  class?: string;
+}
+const {
+  href,
+  variant = 'primary',
+  label,
+  target,
+  location,
+  external = false,
+  class: cls,
+} = Astro.props;
+
+const base =
+  'inline-flex min-h-[48px] items-center justify-center rounded-md px-7 text-base font-semibold transition-colors';
+const variants: Record<string, string> = {
+  primary: 'bg-gold text-ink hover:bg-gold-600',
+  secondary: 'border border-teal text-teal hover:bg-teal hover:text-ivory',
+  'secondary-light': 'border border-ivory/70 text-ivory hover:bg-ivory hover:text-teal',
+  tertiary: 'min-h-0 px-0 text-teal underline underline-offset-4 hover:text-teal-700',
+};
+---
+<a
+  href={href}
+  class:list={[base, variants[variant], cls]}
+  data-cta
+  data-cta-target={target}
+  data-cta-location={location}
+  data-cta-label={label}
+  rel={external ? 'noopener noreferrer' : undefined}
+  target={external ? '_blank' : undefined}
+>
+  <slot>{label}</slot>
+</a>
