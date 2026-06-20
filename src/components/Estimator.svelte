@@ -290,9 +290,9 @@
   onMount(() => track('estimator_view', { lang }));
 </script>
 
-<div class="grid gap-8 md:grid-cols-12 md:gap-10">
+<div class="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-10">
   <!-- ════ BUILDER ════ -->
-  <div class="space-y-10 md:col-span-7">
+  <div class="space-y-10 md:col-span-7 min-w-0">
     <!-- 1 · Interest -->
     <section>
       <p class="est-eyebrow">{t.s1e}</p>
@@ -444,7 +444,7 @@
   </div>
 
   <!-- ════ WARM TRANSFER TO IVY ════ -->
-  <aside class="md:col-span-5">
+  <aside class="md:col-span-5 min-w-0">
     <div class="rounded-xl border border-line bg-cream p-6 md:sticky md:top-24">
       <p class="est-eyebrow">{t.asideE}</p>
 
