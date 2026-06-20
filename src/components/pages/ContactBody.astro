@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../SectionHeading.astro';
+import WhatsAppLink from '../WhatsAppLink.astro';
+import CTAButton from '../CTAButton.astro';
+import { SITE } from '../../consts';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+
+const C: Record<string, any> = {
+  en: { mt: 'Contact — Ivory Arc Travels', md: 'Talk to Ivory Arc about a private journey across North India — WhatsApp, call or email. Based in Agra, replies within about two hours.', eyebrow: 'Contact', h1: 'Three easy ways to reach us.', intro: 'The fastest way to reach us is on WhatsApp — IVY can start shaping an itinerary and an indicative price straight away. Prefer to call or email? We\u2019re here for that too.', reassure: 'Replies within about two hours · No booking fees · No obligation', waT: 'Chat with IVY on WhatsApp', waD: 'Planning, availability and an honest indicative quote — the quickest path to a journey.', callT: 'Call us', callD: 'Speak to the team directly — ideal for complex, multi-region or special-occasion journeys.', emailT: 'Email', emailD: 'For detailed enquiries, quotes and anything you\u2019d like in writing.', onlineT: 'Prefer to start online?', onlineD: 'Use the estimator to shape a journey and see an indicative range in INR before you talk to anyone.', openEst: 'Open the estimator', whereT: 'Where we are', appt: 'By appointment, open every day. We typically reply within about two hours.', reg: 'Registered Indian tour operator', billing: 'All journeys billed in INR — other currencies indicative only' },
+  es: { mt: 'Contacto — Ivory Arc Travels', md: 'Habla con Ivory Arc sobre un viaje privado por el norte de la India: WhatsApp, llamada o correo. Con sede en Agra, respondemos en unas dos horas.', eyebrow: 'Contacto', h1: 'Tres formas fáciles de contactarnos.', intro: 'La forma más rápida es WhatsApp: IVY puede empezar a diseñar un itinerario y un precio orientativo enseguida. ¿Prefieres llamar o escribir? También estamos para eso.', reassure: 'Respuestas en unas dos horas · Sin cargos de reserva · Sin compromiso', waT: 'Chatea con IVY por WhatsApp', waD: 'Planificación, disponibilidad y un presupuesto orientativo honesto: el camino más rápido a un viaje.', callT: 'Llámanos', callD: 'Habla directamente con el equipo, ideal para viajes complejos, de varias regiones u ocasiones especiales.', emailT: 'Correo', emailD: 'Para consultas detalladas, presupuestos y todo lo que quieras por escrito.', onlineT: '¿Prefieres empezar en línea?', onlineD: 'Usa el estimador para diseñar un viaje y ver un rango orientativo en INR antes de hablar con nadie.', openEst: 'Abrir el estimador', whereT: 'Dónde estamos', appt: 'Con cita previa, abierto todos los días. Solemos responder en unas dos horas.', reg: 'Operador turístico indio registrado', billing: 'Todos los viajes se facturan en INR; otras monedas son orientativas' },
+  de: { mt: 'Kontakt — Ivory Arc Travels', md: 'Sprechen Sie mit Ivory Arc über eine private Nordindien-Reise — WhatsApp, Anruf oder E-Mail. Sitz in Agra, Antwort in etwa zwei Stunden.', eyebrow: 'Kontakt', h1: 'Drei einfache Wege, uns zu erreichen.', intro: 'Am schnellsten erreichen Sie uns über WhatsApp — IVY kann sofort eine Route und einen Richtpreis entwerfen. Lieber anrufen oder schreiben? Auch dafür sind wir da.', reassure: 'Antwort in etwa zwei Stunden · Keine Buchungsgebühren · Unverbindlich', waT: 'Auf WhatsApp mit IVY chatten', waD: 'Planung, Verfügbarkeit und ein ehrlicher Richtpreis — der schnellste Weg zur Reise.', callT: 'Rufen Sie uns an', callD: 'Sprechen Sie direkt mit dem Team — ideal für komplexe, mehrregionale oder besondere Reisen.', emailT: 'E-Mail', emailD: 'Für ausführliche Anfragen, Angebote und alles, was Sie schriftlich möchten.', onlineT: 'Lieber online beginnen?', onlineD: 'Nutzen Sie den Rechner, um eine Reise zu gestalten und eine Richtspanne in INR zu sehen, bevor Sie mit jemandem sprechen.', openEst: 'Rechner öffnen', whereT: 'Wo wir sind', appt: 'Nach Vereinbarung, täglich geöffnet. Wir antworten meist in etwa zwei Stunden.', reg: 'Registrierter indischer Reiseveranstalter', billing: 'Alle Reisen werden in INR abgerechnet — andere Währungen sind Richtwerte' },
+  fr: { mt: 'Contact — Ivory Arc Travels', md: "Parlez à Ivory Arc d'un voyage privé dans le nord de l'Inde — WhatsApp, appel ou e-mail. Basés à Agra, réponse en deux heures environ.", eyebrow: 'Contact', h1: 'Trois façons simples de nous joindre.', intro: "Le plus rapide est WhatsApp — IVY peut commencer à concevoir un itinéraire et un prix indicatif tout de suite. Vous préférez appeler ou écrire ? Nous sommes là aussi.", reassure: 'Réponse en deux heures environ · Sans frais de réservation · Sans engagement', waT: 'Discuter avec IVY sur WhatsApp', waD: 'Planification, disponibilité et un devis indicatif honnête — le chemin le plus rapide vers un voyage.', callT: 'Appelez-nous', callD: 'Parlez directement à l\u2019équipe — idéal pour les voyages complexes, multi-régions ou les occasions spéciales.', emailT: 'E-mail', emailD: 'Pour les demandes détaillées, les devis et tout ce que vous souhaitez par écrit.', onlineT: 'Vous préférez commencer en ligne ?', onlineD: 'Utilisez l\u2019estimateur pour composer un voyage et voir une fourchette indicative en INR avant de parler à qui que ce soit.', openEst: 'Ouvrir l\u2019estimateur', whereT: 'Où nous sommes', appt: 'Sur rendez-vous, ouvert tous les jours. Nous répondons généralement en deux heures environ.', reg: 'Voyagiste indien enregistré', billing: 'Tous les voyages sont facturés en INR — les autres devises sont indicatives' },
+  it: { mt: 'Contatti — Ivory Arc Travels', md: "Parla con Ivory Arc di un viaggio privato nell'India del Nord — WhatsApp, telefono o e-mail. Con sede ad Agra, rispondiamo in circa due ore.", eyebrow: 'Contatti', h1: 'Tre modi semplici per contattarci.', intro: 'Il modo più rapido è WhatsApp: IVY può iniziare subito a creare un itinerario e un prezzo indicativo. Preferisci chiamare o scrivere? Ci siamo anche per questo.', reassure: 'Risposte in circa due ore · Nessun costo di prenotazione · Senza impegno', waT: 'Chatta con IVY su WhatsApp', waD: 'Pianificazione, disponibilità e un preventivo indicativo onesto: la via più rapida verso un viaggio.', callT: 'Chiamaci', callD: 'Parla direttamente con il team — ideale per viaggi complessi, multi-regione o occasioni speciali.', emailT: 'E-mail', emailD: 'Per richieste dettagliate, preventivi e tutto ciò che desideri per iscritto.', onlineT: 'Preferisci iniziare online?', onlineD: "Usa lo strumento per comporre un viaggio e vedere una fascia indicativa in INR prima di parlare con qualcuno.", openEst: 'Apri lo strumento', whereT: 'Dove siamo', appt: 'Su appuntamento, aperti tutti i giorni. Di solito rispondiamo in circa due ore.', reg: 'Operatore turistico indiano registrato', billing: 'Tutti i viaggi sono fatturati in INR — le altre valute sono indicative' },
+  ru: { mt: 'Контакты — Ivory Arc Travels', md: 'Поговорите с Ivory Arc о частном путешествии по Северной Индии — WhatsApp, звонок или эл. почта. Находимся в Агре, отвечаем примерно за два часа.', eyebrow: 'Контакты', h1: 'Три простых способа связаться.', intro: 'Быстрее всего — через WhatsApp: IVY может сразу начать составлять маршрут и ориентировочную цену. Предпочитаете позвонить или написать? Мы и для этого на связи.', reassure: 'Ответы примерно за два часа · Без сборов за бронирование · Без обязательств', waT: 'Написать IVY в WhatsApp', waD: 'Планирование, наличие и честная ориентировочная смета — самый быстрый путь к путешествию.', callT: 'Позвоните нам', callD: 'Поговорите напрямую с командой — идеально для сложных, многорегиональных или особых поездок.', emailT: 'Эл. почта', emailD: 'Для подробных запросов, смет и всего, что нужно в письменном виде.', onlineT: 'Хотите начать онлайн?', onlineD: 'Используйте калькулятор, чтобы составить поездку и увидеть ориентировочный диапазон в INR, прежде чем с кем-то говорить.', openEst: 'Открыть калькулятор', whereT: 'Где мы находимся', appt: 'По предварительной записи, открыто каждый день. Обычно отвечаем примерно за два часа.', reg: 'Зарегистрированный индийский туроператор', billing: 'Все поездки оплачиваются в INR — другие валюты ориентировочны' },
+};
+const c = C[lang] ?? C.en;
+const canonical = lang === 'en' ? '/contact' : `/${lang}/contact`;
+const mapsQuery = encodeURIComponent(`${SITE.addressLine}, ${SITE.city} ${SITE.postcode}, ${SITE.region}, ${SITE.country}`);
+const mapsSrc = `https://www.google.com/maps?q=${mapsQuery}&output=embed`;
+---
+<BaseLayout title={c.mt} description={c.md} lang={lang} canonical={canonical} hreflangPath="/contact">
+  <section class="container-ed py-16 md:py-24">
+    <SectionHeading as="h1" eyebrow={c.eyebrow} title={c.h1} intro={c.intro} align="left" />
+    <p class="mt-3 text-sm text-muted">{c.reassure}</p>
+
+    <div class="mt-12 grid gap-10 md:grid-cols-[1.2fr_1fr] md:gap-16">
+      <div class="space-y-8">
+        <div>
+          <h2 class="text-h3">{c.waT}</h2>
+          <p class="mt-2 max-w-md text-muted">{c.waD}</p>
+          <div class="mt-4"><WhatsAppLink agent="ivy" variant="primary" location="contact" /></div>
+        </div>
+        <div>
+          <h2 class="text-h3">{c.callT}</h2>
+          <p class="mt-2 max-w-md text-muted">{c.callD}</p>
+          <p class="mt-3"><a class="font-display text-2xl text-teal underline underline-offset-4" href={`tel:${SITE.phoneTel}`} data-cta data-cta-target="phone" data-cta-location="contact">{SITE.phoneDisplay}</a></p>
+          <div class="mt-3"><WhatsAppLink agent="specialist" variant="secondary" location="contact" /></div>
+        </div>
+        <div>
+          <h2 class="text-h3">{c.emailT}</h2>
+          <p class="mt-2 max-w-md text-muted">{c.emailD}</p>
+          <p class="mt-3"><a class="text-teal underline underline-offset-2" href={`mailto:${SITE.email}`} data-cta data-cta-target="email" data-cta-location="contact">{SITE.email}</a></p>
+        </div>
+        <div>
+          <h2 class="text-h3">{c.onlineT}</h2>
+          <p class="mt-2 max-w-md text-muted">{c.onlineD}</p>
+          <div class="mt-4"><CTAButton href={lang === 'en' ? '/plan' : `/${lang}/plan`} variant="secondary" label={c.openEst} target="estimator" location="contact" /></div>
+        </div>
+      </div>
+
+      <aside class="space-y-6">
+        <div class="rounded-lg border border-line bg-cream p-6">
+          <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700">{c.whereT}</h2>
+          <address class="mt-4 not-italic text-sm leading-relaxed text-ink">
+            {SITE.name}<br />{SITE.addressLine}<br />{SITE.city} {SITE.postcode}<br />{SITE.region}, {SITE.country}
+          </address>
+          <p class="mt-4 text-sm text-muted">{c.appt}</p>
+          <dl class="mt-4 space-y-3 border-t border-line pt-4 text-sm">
+            <div><dt class="text-muted">GST</dt><dd class="text-ink">{SITE.gst}</dd></div>
+            <div><dt class="text-muted">{c.reg.split(' ')[0]}</dt><dd class="text-ink">{c.reg} · {SITE.msme}</dd></div>
+            <div><dt class="text-muted">INR</dt><dd class="text-ink">{c.billing}</dd></div>
+          </dl>
+        </div>
+        <div class="overflow-hidden rounded-lg border border-line">
+          <iframe src={mapsSrc} width="100%" height="320" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title={`${SITE.name} — ${SITE.city}`}></iframe>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

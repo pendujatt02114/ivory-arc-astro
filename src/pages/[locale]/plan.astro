@@ -1,0 +1,9 @@
+---
+import PlanBody from '../../components/pages/PlanBody.astro';
+import type { Lang } from '../../i18n/ui';
+export function getStaticPaths() {
+  return ['es', 'de', 'fr', 'it', 'ru'].map((locale) => ({ params: { locale } }));
+}
+const { locale } = Astro.params;
+---
+<PlanBody lang={locale as Lang} />
