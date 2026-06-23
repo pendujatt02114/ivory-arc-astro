@@ -1,0 +1,9 @@
+---
+import AboutBody from '../../components/pages/AboutBody.astro';
+import type { Lang } from '../../i18n/ui';
+export function getStaticPaths() {
+  return ['es', 'de', 'fr', 'it', 'ru'].map((locale) => ({ params: { locale } }));
+}
+const { locale } = Astro.params;
+---
+<AboutBody lang={locale as Lang} />
