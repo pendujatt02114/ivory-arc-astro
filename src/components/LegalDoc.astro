@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  heading: string;
+  updated?: string;
+}
+const { title, description, canonical, heading, updated = '—' } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <section class="container-ed py-16 md:py-24">
+    <div class="max-w-3xl">
+      <h1 class="text-h2">{heading}</h1>
+      <p class="mt-2 text-sm text-muted">Effective date: {updated}</p>
+
+      <div class="legal-prose mt-8">
+        <slot />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-prose :global(h2) {
+    font-size: var(--text-h3);
+    margin-top: 2rem;
+    margin-bottom: 0.25rem;
+  }
+  .legal-prose :global(p) {
+    margin-top: 0.75rem;
+    color: var(--color-muted);
+  }
+  .legal-prose :global(ul) {
+    margin-top: 0.75rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+    color: var(--color-muted);
+  }
+  .legal-prose :global(li) {
+    margin-top: 0.35rem;
+  }
+  .legal-prose :global(a) {
+    color: var(--color-teal);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>
