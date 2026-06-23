@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTAButton from '../components/CTAButton.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+---
+<BaseLayout
+  title="Page not found — Ivory Arc Travels"
+  description="This page wandered off the map. Head back to plan a private North India journey, or message us and we'll point you the right way."
+  canonical="/404"
+>
+  <section class="container-ed flex min-h-[62svh] flex-col items-center justify-center py-20 text-center">
+    <p class="text-xs font-medium uppercase tracking-[0.24em] text-teal-700">Error 404</p>
+    <h1 class="mt-4 text-display">This path wandered off the map.</h1>
+    <p class="mt-5 max-w-md text-lg text-muted">
+      The page you're looking for isn't here — but every good journey needs a guide. Let's get you
+      back on track.
+    </p>
+    <div class="mt-8 flex flex-col items-stretch gap-3 sm:flex-row">
+      <CTAButton href="/" variant="primary" label="Back to home" location="404" />
+      <WhatsAppLink variant="secondary" location="404" />
+    </div>
+    <nav class="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm" aria-label="Popular pages">
+      <a class="text-teal underline underline-offset-4 hover:text-teal-700" href="/destinations">Destinations</a>
+      <a class="text-teal underline underline-offset-4 hover:text-teal-700" href="/experiences/heritage">Experiences</a>
+      <a class="text-teal underline underline-offset-4 hover:text-teal-700" href="/plan">Plan a journey</a>
+      <a class="text-teal underline underline-offset-4 hover:text-teal-700" href="/about">About</a>
+      <a class="text-teal underline underline-offset-4 hover:text-teal-700" href="/contact">Contact</a>
+    </nav>
+  </section>
+</BaseLayout>
