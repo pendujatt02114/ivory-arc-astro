@@ -49,7 +49,11 @@
   let submitting = $state(false); let ref = $state(''); let waUrl = $state('');
 
   // Earliest selectable travel date = tomorrow (today and the past are blocked).
-  const minDate = (() => { const d = new Date(); d.setDate(d.getDate() + 1); return d.toISOString().slice(0, 10); })();
+  const minDate = (() => {
+    const d = new Date(); d.setDate(d.getDate() + 1);   // tomorrow, in the user's own calendar
+    const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;                            // local 'YYYY-MM-DD' (no UTC slice -> no off-by-one near midnight)
+  })();
 
   // 4+ adults can't sit in a Sedan — auto-pick the SUV, no choice shown.
   $effect(() => { if (adults > 3 && vehicle !== 'suv') vehicle = 'suv'; });
