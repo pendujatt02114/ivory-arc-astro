@@ -1,0 +1,2 @@
+# Apex → www so the canonical host is authoritative. Cloudflare handles HTTP→HTTPS.
+https://ivoryarctravels.com/*  https://www.ivoryarctravels.com/:splat  301!
