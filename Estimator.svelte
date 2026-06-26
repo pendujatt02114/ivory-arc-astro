@@ -16,11 +16,22 @@
   import { buildScheduleParts, fmtDate } from '../lib/schedule';
   import { EST_I18N } from '../lib/estimator-i18n';
   import { useTranslations, type Lang } from '../i18n/ui';
+  import { onMount } from 'svelte';
 
   let { lang = 'en' }: { lang?: string } = $props();
   const L = $derived(EST_I18N[lang as Lang] ?? EST_I18N.en);
   const tt = useTranslations(lang as Lang);
   const themeLabel = (k: ThemeKey) => tt(`interest.${k}`);
+
+  // analytics: emit the events GTM already listens for (were previously never pushed).
+  // SSR-safe because this component hydrates as an Astro island.
+  function dlPush(event: string, data: Record<string, unknown> = {}) {
+    if (typeof window === 'undefined') return;
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event, ...data });
+  }
+  let trackedStart = false;
+  let trackedComplete = false;
 
   const GATEWAY = 'Delhi';                              // fixed arrival & departure city
   const VEH_LABELS: Record<string, string> = { sedan: 'Sedan', suv: 'SUV' };
@@ -53,6 +64,28 @@
 
   // 4+ adults can't sit in a Sedan — auto-pick the SUV, no choice shown.
   $effect(() => { if (adults > 3 && vehicle !== 'suv') vehicle = 'suv'; });
+
+  // estimator_started -> GA4 + Meta ViewContent (fires once when the estimator mounts)
+  onMount(() => {
+    if (trackedStart) return;
+    trackedStart = true;
+    dlPush('estimator_started', { lang, source_page: 'plan', lead_type: 'warm' });
+  });
+
+  // estimator_completed -> GA4 (fires once when the traveller reaches the review step)
+  $effect(() => {
+    if (step === 7 && !trackedComplete) {
+      trackedComplete = true;
+      dlPush('estimator_completed', {
+        lang,
+        trip_category: themes.join(','),
+        traveler_count: adults + children,
+        destination_count: picked.length,
+        total_nights: scheduleLegs.reduce((s, l) => s + l.nights, 0),
+        source_page: 'plan',
+      });
+    }
+  });
 
   const destPool = $derived.by(() => {
     const seen = new Set<string>(); const out: ThemeDest[] = [];
@@ -140,6 +173,22 @@
     const lead = buildWarmLead(state);
     try { const r = await submitWarmLead(lead); ref = r.ref; } catch { ref = lead.ref; }
     if (!ref) ref = lead.ref || makeRef();
+    // lead_captured -> GA4 + Meta Lead (THE conversion). This event_id is reused by the
+    // browser Meta Pixel for dedup and forwarded to the server container for the CAPI event.
+    const eventId = (globalThis.crypto?.randomUUID?.()
+      ?? `lead-${Date.now()}-${Math.random().toString(16).slice(2)}`);
+    dlPush('lead_captured', {
+      event_id: eventId,
+      lead_type: 'warm',
+      ref,
+      lang,
+      trip_category: themes.join(','),
+      traveler_count: adults + children,
+      destination_count: picked.length,
+      total_nights: overnightLegs.reduce((s, l) => s + l.nights, 0),
+      currency,
+      source_page: 'plan',
+    });
     // The brief travels INSIDE the WhatsApp message, in IVY's exact order, so IVY
     // has the whole trip even if the backend store is unreachable — it adopts this
     // ref and never re-asks.
