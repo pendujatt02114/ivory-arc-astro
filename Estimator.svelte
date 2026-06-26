@@ -17,19 +17,13 @@
   import { EST_I18N } from '../lib/estimator-i18n';
   import { useTranslations, type Lang } from '../i18n/ui';
   import { onMount } from 'svelte';
+  import { track, captureLead } from '../lib/analytics';
 
   let { lang = 'en' }: { lang?: string } = $props();
   const L = $derived(EST_I18N[lang as Lang] ?? EST_I18N.en);
   const tt = useTranslations(lang as Lang);
   const themeLabel = (k: ThemeKey) => tt(`interest.${k}`);
 
-  // analytics: emit the events GTM already listens for (were previously never pushed).
-  // SSR-safe because this component hydrates as an Astro island.
-  function dlPush(event: string, data: Record<string, unknown> = {}) {
-    if (typeof window === 'undefined') return;
-    (window as any).dataLayer = (window as any).dataLayer || [];
-    (window as any).dataLayer.push({ event, ...data });
-  }
   let trackedStart = false;
   let trackedComplete = false;
 
@@ -60,23 +54,27 @@
   let submitting = $state(false); let ref = $state(''); let waUrl = $state('');
 
   // Earliest selectable travel date = tomorrow (today and the past are blocked).
-  const minDate = (() => { const d = new Date(); d.setDate(d.getDate() + 1); return d.toISOString().slice(0, 10); })();
+  const minDate = (() => {
+    const d = new Date(); d.setDate(d.getDate() + 1);   // tomorrow, in the user's own calendar
+    const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;                            // local 'YYYY-MM-DD' (no UTC slice -> no off-by-one near midnight)
+  })();
 
   // 4+ adults can't sit in a Sedan — auto-pick the SUV, no choice shown.
   $effect(() => { if (adults > 3 && vehicle !== 'suv') vehicle = 'suv'; });
 
-  // estimator_started -> GA4 + Meta ViewContent (fires once when the estimator mounts)
+  // estimator_started -> GA4 + Meta ViewContent (once, when the estimator mounts)
   onMount(() => {
     if (trackedStart) return;
     trackedStart = true;
-    dlPush('estimator_started', { lang, source_page: 'plan', lead_type: 'warm' });
+    track('estimator_started', { lang, source_page: 'plan', lead_type: 'warm' });
   });
 
-  // estimator_completed -> GA4 (fires once when the traveller reaches the review step)
+  // estimator_completed -> GA4 (once, when the traveller reaches the review step)
   $effect(() => {
     if (step === 7 && !trackedComplete) {
       trackedComplete = true;
-      dlPush('estimator_completed', {
+      track('estimator_completed', {
         lang,
         trip_category: themes.join(','),
         traveler_count: adults + children,
@@ -151,6 +149,7 @@
   function goStep(i: number) { if (i <= maxReached) step = i; } // jump to any unlocked step to edit it
 
   async function send() {
+    if (submitting) return; // re-entrancy guard — guarantees exactly one conversion per submit
     submitting = true;
     const selectedKeys = Object.entries(addonsSel).filter(([, v]) => v).map(([k]) => {
       const [destination, ...rest] = k.split('::'); return { destination, name: rest.join('::') };
@@ -173,12 +172,11 @@
     const lead = buildWarmLead(state);
     try { const r = await submitWarmLead(lead); ref = r.ref; } catch { ref = lead.ref; }
     if (!ref) ref = lead.ref || makeRef();
-    // lead_captured -> GA4 + Meta Lead (THE conversion). This event_id is reused by the
-    // browser Meta Pixel for dedup and forwarded to the server container for the CAPI event.
-    const eventId = (globalThis.crypto?.randomUUID?.()
-      ?? `lead-${Date.now()}-${Math.random().toString(16).slice(2)}`);
-    dlPush('lead_captured', {
-      event_id: eventId,
+    // lead_captured -> GA4 + Meta Pixel "Lead" AND server-side Meta CAPI (/api/capi),
+    // both keyed by one shared event_id. captureLead() handles the dataLayer push,
+    // the event_id, and the /api/capi mirror for dedup. No PII is sent.
+    console.log('[IA-TEMP] send(): firing captureLead, ref =', ref); // TEMP: remove after verifying
+    captureLead({
       lead_type: 'warm',
       ref,
       lang,
