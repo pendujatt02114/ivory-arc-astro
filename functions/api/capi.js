@@ -10,7 +10,7 @@
     META_PIXEL_ID            (defaults to the public pixel id below)
     META_TEST_EVENT_CODE     (for Events Manager "Test events" only; remove for prod)
 */
-const DEFAULT_PIXEL_ID = '1507960651025642';
+const DEFAULT_PIXEL_ID = '1386413130295002'; // must match the browser Pixel id (env META_PIXEL_ID) or dedup fails
 const GRAPH_VERSION = 'v21.0';
 
 export async function onRequestPost(context) {
